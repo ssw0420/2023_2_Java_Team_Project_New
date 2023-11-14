@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextPane;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class MainUI extends JFrame {
 
@@ -56,36 +58,56 @@ public class MainUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(211, 211, 211));
-		panel.setBounds(140, 120, 1000, 550);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JPanel startPage = new JPanel();
+		startPage.setBackground(new Color(211, 211, 211));
+		startPage.setBounds(140, 120, 1000, 550);
+		contentPane.add(startPage);
+		startPage.setLayout(null);
+		
+		JPanel createUserPage = new JPanel();
+		createUserPage.setBackground(new Color(211, 211, 211));
+		createUserPage.setBounds(140, 120, 1000, 550);
+		
+		contentPane.add(createUserPage);
+		
 		
 		JButton createButton = new JButton("생 성");
+		createButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				createUserPage.setVisible(true);
+				startPage.setVisible(false);
+			}
+		});
 		createButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
 		createButton.setBounds(800, 100, 130, 70);
-		panel.add(createButton);
+		startPage.add(createButton);
 		
 		JButton updateButton = new JButton("수 정");
-		updateButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		updateButton.setBounds(800, 250, 130, 70);
-		panel.add(updateButton);
-		
-		JButton deleteButton = new JButton("삭 제");
-		deleteButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		deleteButton.setBounds(800, 400, 130, 70);
-		panel.add(deleteButton);
-		
-		JTextArea txtrDdd = new JTextArea();
-		txtrDdd.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		txtrDdd.setText("영어 단어 학습");
-		txtrDdd.setBounds(482, 25, 463, 61);
-		contentPane.add(txtrDdd);
-		createButton.addActionListener(new ActionListener() {
+		updateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		updateButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
+		updateButton.setBounds(800, 250, 130, 70);
+		startPage.add(updateButton);
+		
+		JButton deleteButton = new JButton("삭 제");
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		deleteButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
+		deleteButton.setBounds(800, 400, 130, 70);
+		startPage.add(deleteButton);
+		
+		JLabel mainName = new JLabel("영어 단어 학습");
+		mainName.setHorizontalAlignment(SwingConstants.CENTER);
+		mainName.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 40));
+		mainName.setBounds(450, 22, 393, 72);
+		contentPane.add(mainName);
+		
+		
+		createUserPage.setVisible(false);
 //		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 	}
 }
