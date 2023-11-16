@@ -78,7 +78,7 @@ public class MainUI extends JFrame {
 		wordMenuPage.setVisible(false);
 		
 		// 메인 화면 상단 유저 정보
-		UserDetailHead userDetailHead = new UserDetailHead(startPage);
+		UserDetailHead userDetailHead = new UserDetailHead(startPage, "신승우", "고급", 2100);
 		userDetailHead.setLocation(250, 25);
 		userDetailHead.setSize(800, 70);
 		mainPanel.add(userDetailHead);
