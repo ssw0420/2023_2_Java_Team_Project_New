@@ -14,9 +14,11 @@ public class UserDetailHead extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public UserDetailHead(JPanel startPage, String userName, String userLevel, int userHighScore) {
+//	public UserDetailHead(JPanel startPage, String userName, String userLevel, int userHighScore) {
+	public UserDetailHead(String userName, String userLevel, int userHighScore) {
 		setBackground(new Color(211, 211, 211));
 		setBounds(140, 30, 1000, 50);
+		setSize(1280, 800); // 화면 크기 설정
 		setLayout(null);
 		
 		JLabel UserNameLabel = new JLabel("사용자 : " + userName);

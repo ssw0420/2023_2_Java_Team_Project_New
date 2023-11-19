@@ -21,9 +21,11 @@ public class CreateUser extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CreateUser(JPanel startPage) {
-		setBackground(new Color(211, 211, 211));
+//	public CreateUser(JPanel startPage) {
+	public CreateUser(MainUI MainFrame) {
+		setBackground(new Color(176, 196, 222));
 		setBounds(140, 120, 1000, 550);
+		setSize(1280, 800); // 화면 크기 설정
 		setLayout(null);
 		
 		JButton createUserButton = new JButton("등 록");
@@ -34,38 +36,39 @@ public class CreateUser extends JPanel {
 			}
 		});
 		createUserButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		createUserButton.setBounds(832, 400, 130, 50);
+		createUserButton.setBounds(955, 600, 130, 50);
 		add(createUserButton);
 		
 		JButton CreateUserCancelButton = new JButton("취 소");
 		CreateUserCancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				startPage.setVisible(true);
+//				setVisible(false);
+//				startPage.setVisible(true);
+				MainFrame.showPanel("startPage");
 			}
 		});
 		CreateUserCancelButton.setForeground(new Color(0, 0, 0));
 		CreateUserCancelButton.setBackground(new Color(255, 255, 255));
 		CreateUserCancelButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		CreateUserCancelButton.setBounds(665, 400, 130, 50);
+		CreateUserCancelButton.setBounds(775, 600, 130, 50);
 		add(CreateUserCancelButton);
 		
 		JLabel CreateUserTitle = new JLabel("사용자 등록");
 		CreateUserTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		CreateUserTitle.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 32));
-		CreateUserTitle.setBounds(400, 25, 200, 50);
+		CreateUserTitle.setBounds(540, 25, 200, 50);
 		add(CreateUserTitle);
 		
 		JLabel UserNameLabel = new JLabel("이        름  :");
 		UserNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		UserNameLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
-		UserNameLabel.setBounds(100, 120, 100, 50);
+		UserNameLabel.setBounds(215, 244, 100, 50);
 		add(UserNameLabel);
 		
 		JLabel UserLevelLabel = new JLabel("목표  수준  :");
 		UserLevelLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		UserLevelLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
-		UserLevelLabel.setBounds(100, 220, 100, 50);
+		UserLevelLabel.setBounds(215, 356, 100, 50);
 		add(UserLevelLabel);
 		
 		UserNameField = new JTextField();
@@ -73,7 +76,7 @@ public class CreateUser extends JPanel {
 		UserNameField.setHorizontalAlignment(SwingConstants.CENTER);
 		UserNameField.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
 		UserNameField.setBackground(new Color(255, 255, 255));
-		UserNameField.setBounds(215, 120, 220, 50);
+		UserNameField.setBounds(332, 244, 220, 50);
 		add(UserNameField);
 		UserNameField.setColumns(10);
 		
@@ -82,7 +85,16 @@ public class CreateUser extends JPanel {
 		UserLevelcomboBox.setForeground(new Color(0, 0, 0));
 		UserLevelcomboBox.setBackground(new Color(255, 255, 255));
 		UserLevelcomboBox.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
-		UserLevelcomboBox.setBounds(215, 220, 220, 50);
+		UserLevelcomboBox.setBounds(332, 356, 220, 50);
 		add(UserLevelcomboBox);
+		
+		
+		JLabel selectMenuLabel = new JLabel("사용자 정보를 입력하세요");
+		selectMenuLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 40));
+		selectMenuLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		selectMenuLabel.setForeground(new Color(0, 0, 128));
+		selectMenuLabel.setBackground(new Color(0, 0, 0));
+		selectMenuLabel.setBounds(679, 144, 470, 365);
+		add(selectMenuLabel);
 	}
 }
