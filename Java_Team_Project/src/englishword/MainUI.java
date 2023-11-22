@@ -145,7 +145,7 @@ public class MainUI extends JFrame {
 		
 		// 미구현 - 유저 목록
 		JPanel UserListPanel = new JPanel();
-		UserListPanel.setBounds(240, 145, 767, 360);
+		UserListPanel.setBounds(200, 145, 800, 360);
 		startPage.add(UserListPanel);
 		UserListPanel.setLayout(null);
 		

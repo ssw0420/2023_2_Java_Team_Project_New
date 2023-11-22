@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class WordQuiz extends JPanel {
 
@@ -37,7 +38,55 @@ public class WordQuiz extends JPanel {
 			}
 		});
 		btnNewButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
-		btnNewButton.setBounds(900, 600, 180, 60);
+		btnNewButton.setBounds(1000, 664, 180, 60);
 		add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
+		btnNewButton_1.setBounds(102, 158, 358, 159);
+		add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("New button");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_2.setBackground(new Color(255, 255, 255));
+		btnNewButton_2.setBounds(543, 158, 358, 159);
+		add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("New button");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_3.setBackground(new Color(255, 255, 255));
+		btnNewButton_3.setBounds(102, 412, 358, 159);
+		add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("New button");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_4.setBackground(new Color(255, 255, 255));
+		btnNewButton_4.setBounds(543, 412, 358, 159);
+		add(btnNewButton_4);
+		
+		JLabel lblNewLabel = new JLabel("남은 시간 :");
+		lblNewLabel.setBounds(1000, 158, 209, 70);
+		add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("현재 점수 :");
+		lblNewLabel_1.setBounds(1000, 267, 209, 70);
+		add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("라이프 :");
+		lblNewLabel_1_1.setBounds(1000, 371, 209, 70);
+		add(lblNewLabel_1_1);
 	}
 }
