@@ -22,6 +22,10 @@ public class WordQuiz extends JPanel {
     private int remainingTime; // 남은 시간 (초)
     private JDialog resultDialog; // JDialog 추가
 	private String nowWord;
+	private JButton choiceButton_1;
+	private JButton choiceButton_2;
+	private JButton choiceButton_3;
+	private JButton choiceButton_4;
 	/**
 	 * Create the panel.
 	 */
@@ -58,7 +62,7 @@ public class WordQuiz extends JPanel {
         add(wordLabel);
 		
 		// 선택 버튼
-		JButton choiceButton_1 = new JButton("1번 답");
+		choiceButton_1 = new JButton("1번 답");
 		choiceButton_1.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
 		choiceButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,7 +74,7 @@ public class WordQuiz extends JPanel {
 		choiceButton_1.setBounds(100, 222, 358, 159);
 		add(choiceButton_1);
 		
-		JButton choiceButton_2 = new JButton("2번 답");
+		choiceButton_2 = new JButton("2번 답");
 		choiceButton_2.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
 		choiceButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -82,7 +86,7 @@ public class WordQuiz extends JPanel {
 		choiceButton_2.setBounds(541, 222, 358, 159);
 		add(choiceButton_2);
 		
-		JButton choiceButton_3 = new JButton("3번 답");
+		choiceButton_3 = new JButton("3번 답");
 		choiceButton_3.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
 		choiceButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -94,7 +98,7 @@ public class WordQuiz extends JPanel {
 		choiceButton_3.setBounds(100, 476, 358, 159);
 		add(choiceButton_3);
 		
-		JButton choiceButton_4 = new JButton("4번 답");
+		choiceButton_4 = new JButton("4번 답");
 		choiceButton_4.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
 		choiceButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,10 +118,7 @@ public class WordQuiz extends JPanel {
         });
         timer.setRepeats(false); // 한 번만 실행되도록 설정
 		
-		
-		
-		
-		
+	
         timeLabel = new JLabel("남은 시간: 7초"); // 남은 시간 표시 레이블
         timeLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
         timeLabel.setBounds(1000, 158, 209, 70);
@@ -135,7 +136,8 @@ public class WordQuiz extends JPanel {
                     }
                     showTimeoutMessage();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                	Thread.currentThread().interrupt(); // 인터럽트 상태를 다시 설정
                 }
             }
         });
@@ -187,10 +189,10 @@ public class WordQuiz extends JPanel {
         timerThread.interrupt(); // 정답을 선택하면 스레드를 중지
         String correctWord = wordLabel.getText(); // 현재 표시된 영어 단어
         if (selectedMeaning.equals(correctWord)) {
-            showResultDialog("정답! +10점", true);
+            showResultDialog("정답!", true);
             nowScore += 10;
         } else {
-            showResultDialog("오답... -1 라이프", false);
+            showResultDialog("오답...", false);
             userLife--;
             if (userLife <= 0) {
                 showResultDialog("게임 종료. 라이프가 모두 소진되었습니다.", false);
@@ -198,6 +200,10 @@ public class WordQuiz extends JPanel {
             }
         }
         wordLabel.setText("2번 답");
+        choiceButton_1.setText("1..");
+        choiceButton_2.setText("2번 답");
+        choiceButton_3.setText("3..");
+        choiceButton_4.setText("4..");
         updateScoreAndLifeLabels();
 
         // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
@@ -212,7 +218,8 @@ public class WordQuiz extends JPanel {
                     }
                     showTimeoutMessage();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    Thread.currentThread().interrupt(); // 인터럽트 상태를 다시 설정
                 }
             }
         });
@@ -223,11 +230,15 @@ public class WordQuiz extends JPanel {
      * 시간 초과 메시지 표시 메서드
      */
     private void showTimeoutMessage() {
-        JOptionPane.showMessageDialog(this, "시간 초과! 오답으로 처리합니다.", "시간 초과", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "시간 초과!", "시간 초과", JOptionPane.WARNING_MESSAGE);
 
         
         //새로운 랜덤 단어 표시
         wordLabel.setText("2번 답");
+        choiceButton_1.setText("1..");
+        choiceButton_2.setText("2번 답");
+        choiceButton_3.setText("3..");
+        choiceButton_4.setText("4..");
         updateScoreAndLifeLabels();
         // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
         remainingTime = 7;
