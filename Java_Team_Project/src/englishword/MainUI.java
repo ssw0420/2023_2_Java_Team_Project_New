@@ -80,15 +80,17 @@ public class MainUI extends JFrame {
 		mainPanel.add(createUserPage, "createUserPage");
 		createUserPage.setVisible(false);
 		
-		// 메인 화면
-		WordMenu wordMenuPage = new WordMenu(this);
-		mainPanel.add(wordMenuPage, "wordMenuPage");
-		wordMenuPage.setVisible(false);	
-		
 		// 단어 퀴즈 화면
 		WordQuiz wordQuizPage = new WordQuiz(this);
 		mainPanel.add(wordQuizPage, "wordQuizPage");
 		wordQuizPage.setVisible(false);
+		
+		// 메인 화면
+		WordMenu wordMenuPage = new WordMenu(this, wordQuizPage);
+		mainPanel.add(wordMenuPage, "wordMenuPage");
+		wordMenuPage.setVisible(false);	
+		
+
 	
 		
 		// 메인 화면 상단 유저 정보
