@@ -89,6 +89,7 @@ public class WordMenu extends JPanel {
 				{
 //					setVisible(false);
 //					wordQuizPage.setVisible(true);
+					wordQuizPage.showResultDialog("퀴즈 시작 !", true);
 					wordQuizPage.initQuiz();
 					MainFrame.showPanel("wordQuizPage");
 					wordQuizPage.startTimer(MainFrame);
