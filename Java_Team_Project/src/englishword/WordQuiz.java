@@ -28,7 +28,7 @@ public class WordQuiz extends JPanel {
 	private JButton choiceButton_4;
 	private boolean timerRunning;
 	private int delay = 1000;
-	private boolean answerChecked; // 사용자가 정답 확인을 완료했는지 여부
+	public boolean answerChecked; // 사용자가 정답 확인을 완료했는지 여부
 	/**
 	 * Create the panel.
 	 */
@@ -215,12 +215,12 @@ public class WordQuiz extends JPanel {
         if (resultDialog != null && resultDialog.isShowing()) {
             resultDialog.dispose(); // 이미 다이얼로그가 열려있으면 닫기
         }
-
-        resultDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "결과", true); // 부모 프레임을 설정
+//        timerThread.interrupt();
+        resultDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "진행 중", true); // 부모 프레임을 설정
         JLabel resultLabel = new JLabel(message);
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resultLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
-        resultLabel.setBounds(150, 150, 300, 100);
+        resultLabel.setBounds(155, 150, 300, 100);
         if(isCorrect) {
         	resultLabel.setForeground(new Color(0, 0, 255));
 			resultLabel.setBackground(new Color(0, 0, 0));
@@ -338,7 +338,8 @@ public class WordQuiz extends JPanel {
      * 시간 초과 메시지 표시 메서드
      */
     private void showTimeoutMessage(MainUI MainFrame) {
-    	timerThread.interrupt(); // 스레드를 중지
+    	// timerThread.interrupt(); // 스레드를 중지
+    	timerRunning = false;
     	String correctWord = wordAnswer;
     	showResultDialog("시간 초과! 정답은 " + correctWord, false);
         userLife--;
@@ -346,6 +347,7 @@ public class WordQuiz extends JPanel {
 
         if(userLife <= 0) {
         	showResultDialog("퀴즈 종료. 라이프가 모두 소진되었습니다.", false);
+        	answerChecked = false;
         	MainFrame.showPanel("wordMenuPage");
         }
         else {
@@ -360,35 +362,39 @@ public class WordQuiz extends JPanel {
             
             // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
             remainingTime = 7;
-            timerThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        for (; remainingTime >= 0; remainingTime--) {
-                        	updateLabels();
-                        	updateRemainingTime();
-                            Thread.sleep(1000); // 1초 대기
-                        }
-                        showTimeoutMessage(MainFrame);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+            startTimer(MainFrame);
+//            timerThread = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        for (; remainingTime >= 0; remainingTime--) {
+//                        	updateLabels();
+//                        	updateRemainingTime();
+//                            Thread.sleep(1000); // 1초 대기
+//                        }
+//                        showTimeoutMessage(MainFrame);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
         }
-        startTimer(MainFrame);
+        // startTimer(MainFrame);
     }
     
     private void checkAnswer(String selectedMeaning, MainUI MainFrame) {
+    	if(answerChecked) {
+    		return;
+    	}
         timerThread.interrupt(); // 정답을 선택하면 스레드를 중지
         String correctWord = wordAnswer; // 현재 표시된 영어 단어
 
         if (selectedMeaning.equals(correctWord)) {
             // 정답 처리
-            nowScore += 10;
+            nowScore += (remainingTime * 10);
 
             // 버튼 색상 변경
-            getSelectedButton(selectedMeaning).setBackground(Color.GREEN);
+            getSelectedButton(selectedMeaning).setBackground(new Color(0, 255, 127));
 
             // 대기 스레드 시작
             Thread waitThread = new Thread(new Runnable() {
@@ -415,6 +421,9 @@ public class WordQuiz extends JPanel {
                         // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
                         remainingTime = 7;
                         startTimer(MainFrame);
+                        
+                        // 중복으로 점수를 획득하는 것을 막기 위함
+                        answerChecked = false;
                     }
                 }
             });
@@ -425,6 +434,7 @@ public class WordQuiz extends JPanel {
 
             if (userLife <= 0) {
                 showResultDialog("게임 종료. 라이프가 모두 소진되었습니다.", false);
+                answerChecked = false;
                 MainFrame.showPanel("wordMenuPage");
             } else {
                 // 오답인 버튼 색상 변경
@@ -455,12 +465,16 @@ public class WordQuiz extends JPanel {
                             // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
                             remainingTime = 7;
                             startTimer(MainFrame);
+                            
+                            // 중복으로 라이프가 깎이는 것을 막기 위함
+                            answerChecked = false;
                         }
                     }
                 });
                 waitThread.start();
             }
         }
+        answerChecked = true;
     }
     
     
@@ -576,24 +590,24 @@ public class WordQuiz extends JPanel {
     // 선택된 버튼 가져오기
     private JButton getSelectedButton(String selectedMeaning) {
         if (selectedMeaning.equals(choiceButton_1.getText())) {
-            choiceButton_2.setBackground(Color.RED);
-            choiceButton_3.setBackground(Color.RED);
-            choiceButton_4.setBackground(Color.RED);
+            choiceButton_2.setBackground(new Color(220, 20, 60));
+            choiceButton_3.setBackground(new Color(220, 20, 60));
+            choiceButton_4.setBackground(new Color(220, 20, 60));
             return choiceButton_1;
         } else if (selectedMeaning.equals(choiceButton_2.getText())) {
-            choiceButton_1.setBackground(Color.RED);
-            choiceButton_3.setBackground(Color.RED);
-            choiceButton_4.setBackground(Color.RED);
+            choiceButton_1.setBackground(new Color(220, 20, 60));
+            choiceButton_3.setBackground(new Color(220, 20, 60));
+            choiceButton_4.setBackground(new Color(220, 20, 60));
             return choiceButton_2;
         } else if (selectedMeaning.equals(choiceButton_3.getText())) {
-            choiceButton_1.setBackground(Color.RED);
-            choiceButton_2.setBackground(Color.RED);
-            choiceButton_4.setBackground(Color.RED);
+            choiceButton_1.setBackground(new Color(220, 20, 60));
+            choiceButton_2.setBackground(new Color(220, 20, 60));
+            choiceButton_4.setBackground(new Color(220, 20, 60));
             return choiceButton_3;
         } else if (selectedMeaning.equals(choiceButton_4.getText())) {
-            choiceButton_1.setBackground(Color.RED);
-            choiceButton_2.setBackground(Color.RED);
-            choiceButton_3.setBackground(Color.RED);
+            choiceButton_1.setBackground(new Color(220, 20, 60));
+            choiceButton_2.setBackground(new Color(220, 20, 60));
+            choiceButton_3.setBackground(new Color(220, 20, 60));
             return choiceButton_4;
         }
         return null;
