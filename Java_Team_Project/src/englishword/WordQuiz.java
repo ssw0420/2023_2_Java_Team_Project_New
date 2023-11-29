@@ -19,6 +19,7 @@ public class WordQuiz extends JPanel {
     private Thread timerThread; // 시간을 측정하는 스레드
     private int remainingTime; // 남은 시간 (초)
     private JDialog resultDialog; // JDialog 추가
+    private JDialog exitDialog;
 	private String choiceAnswer;
 	private String CorrectAnswer = "2번 답";
 	private String wordAnswer = "2번 답";
@@ -44,14 +45,14 @@ public class WordQuiz extends JPanel {
 		userDetailHead.setSize(800, 70);
 		add(userDetailHead, "userDetailHead");
 		
-		JButton exitButton = new JButton("나가기");
+		JButton exitButton = new JButton("돌아가기");
 		exitButton.setBackground(new Color(255, 255, 255));
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				setVisible(false);
 //				wordMenuPage.setVisible(true);
 				timerThread.interrupt();
-				MainFrame.showPanel("wordMenuPage");
+				quizExit(MainFrame);
 			}
 		});
 		exitButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
@@ -209,6 +210,55 @@ public class WordQuiz extends JPanel {
 	
 	
 	// 함수 구현
+	
+	// 나가기 버튼 클릭 시 팝업창
+	public void quizExit(MainUI MainFrame) {
+        if (exitDialog != null && exitDialog.isShowing()) {
+            exitDialog.dispose(); // 이미 다이얼로그가 열려있으면 닫기
+        }
+        Thread currentTimerThread = timerThread;
+        exitDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "돌아가기", true);
+        exitDialog.setLayout(null);
+        JLabel exitLabel = new JLabel("정말로 퀴즈를 종료하시겠습니까?");
+		exitLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		exitLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
+		exitLabel.setBounds(42, 56, 300, 30);
+        exitDialog.add(exitLabel);
+        exitDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        
+		JButton exitButton = new JButton("예 (Y)");
+		exitButton.setForeground(new Color(255, 0, 0));
+		exitButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 18));
+		exitButton.setBackground(new Color(255, 255, 255));
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.showPanel("wordMenuPage");
+				exitDialog.dispose();
+			}
+		});
+		exitButton.setBounds(42, 133, 120, 40);
+		exitDialog.add(exitButton);
+		
+		JButton resumeButton = new JButton("아니오 (N)");
+		resumeButton.setForeground(new Color(192, 192, 192));
+		resumeButton.setBackground(new Color(255, 255, 255));
+		resumeButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 18));
+		resumeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				startTimer(MainFrame);
+				exitDialog.dispose();
+			}
+		});
+		resumeButton.setBounds(210, 133, 120, 40);
+		exitDialog.add(resumeButton);
+
+        exitDialog.setSize(400, 250);
+        exitDialog.setLocationRelativeTo((Frame) SwingUtilities.getWindowAncestor(this)); // 부모 프레임 중앙에 표시
+        exitDialog.setVisible(true);
+	}
+	
+	
 	
 	// 정답, 오답, 시간 초과 시 사용자에게 표시되는 팝업창
     public void showResultDialog(String message, boolean isCorrect) {
