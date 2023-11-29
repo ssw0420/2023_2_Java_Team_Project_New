@@ -438,7 +438,7 @@ public class WordQuiz extends JPanel {
                 MainFrame.showPanel("wordMenuPage");
             } else {
                 // 오답인 버튼 색상 변경
-                getSelectedButton(selectedMeaning).setBackground(Color.RED);
+                getSelectedButton(selectedMeaning).setBackground(new Color(220, 20, 60));
                 getCorrectButton(correctWord).setBackground(Color.GREEN);
                 // 대기 스레드 시작
                 Thread waitThread = new Thread(new Runnable() {
