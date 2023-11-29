@@ -56,14 +56,14 @@ public class WordQuiz extends JPanel {
 			}
 		});
 		exitButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
-		exitButton.setBounds(1000, 676, 180, 60);
+		exitButton.setBounds(997, 602, 180, 60);
 		add(exitButton);
 		
 		// 문제로 표시될 영어 단어
         wordLabel = new JLabel("1번 문제"); // 임의의 영어 단어로 초기화
         wordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         wordLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 24));
-        wordLabel.setBounds(100, 110, 800, 70);
+        wordLabel.setBounds(103, 133, 800, 70);
         add(wordLabel);
 		
 		// 선택 버튼
@@ -77,7 +77,7 @@ public class WordQuiz extends JPanel {
 			}
 		});
 		choiceButton_1.setBackground(new Color(255, 255, 255));
-		choiceButton_1.setBounds(100, 222, 358, 159);
+		choiceButton_1.setBounds(104, 249, 358, 159);
 		add(choiceButton_1);
 		
 		choiceButton_2 = new JButton("2번 답");
@@ -89,7 +89,7 @@ public class WordQuiz extends JPanel {
 			}
 		});
 		choiceButton_2.setBackground(new Color(255, 255, 255));
-		choiceButton_2.setBounds(541, 222, 358, 159);
+		choiceButton_2.setBounds(545, 249, 358, 159);
 		add(choiceButton_2);
 		
 		choiceButton_3 = new JButton("3번 답");
@@ -101,7 +101,7 @@ public class WordQuiz extends JPanel {
 			}
 		});
 		choiceButton_3.setBackground(new Color(255, 255, 255));
-		choiceButton_3.setBounds(100, 476, 358, 159);
+		choiceButton_3.setBounds(104, 503, 358, 159);
 		add(choiceButton_3);
 		
 		choiceButton_4 = new JButton("4번 답");
@@ -113,80 +113,16 @@ public class WordQuiz extends JPanel {
 			}
 		});
 		choiceButton_4.setBackground(new Color(255, 255, 255));
-		choiceButton_4.setBounds(541, 476, 358, 159);
+		choiceButton_4.setBounds(545, 503, 358, 159);
 		add(choiceButton_4);
 		
-		
-//	    // 시간 구현
-//	    timer = new Timer(7000, new ActionListener() {
-//	        @Override
-//	        public void actionPerformed(ActionEvent e) {
-//	            showTimeoutMessage(MainFrame);
-//	        }
-//	    });
-//	    timer.setRepeats(false); // 한 번만 실행되도록 설정
-//
+
 	    timeLabel = new JLabel("남은 시간 : " + 7 + " 초"); // 남은 시간 표시 레이블
 	    timeLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
-	    timeLabel.setBounds(964, 150, 209, 70);
+	    timeLabel.setBounds(968, 177, 209, 70);
 	    add(timeLabel);
 
-//	    // 스레드를 활용하여 시간 측정
-//	    timerThread = new Thread(new Runnable() {
-//	        @Override
-//	        public void run() {
-//	            try {
-//	                for (remainingTime = 7; remainingTime >= 0; remainingTime--) {
-//	                    Thread.sleep(1000); // 1초 대기
-//	                }
-//	                showTimeoutMessage(MainFrame);
-//	            } catch (InterruptedException e) {
-//	                // e.printStackTrace();
-//	                Thread.currentThread().interrupt(); // 인터럽트 상태를 다시 설정
-//	            }
-//	        }
-//	    });
-//	    timerThread.start();
-//	    startTimer(MainFrame);
-		
-		
-		
-		
-		// 시간 구현
-		
-		
-//        timer = new Timer(7000, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                showTimeoutMessage(MainFrame);
-//            }
-//        });
-//        timer.setRepeats(false); // 한 번만 실행되도록 설정
-//		
-//	
-//        timeLabel = new JLabel("남은 시간 : " + remainingTime); // 남은 시간 표시 레이블
-//        timeLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-//        timeLabel.setBounds(1000, 150, 209, 70);
-//        add(timeLabel);
-		
-//        
-//        // 스레드를 활용하여 시간 측정
-//        timerThread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    for (remainingTime = 7; remainingTime >= 0; remainingTime--) {
-//                    	updateLabels();
-//                        Thread.sleep(1000); // 1초 대기
-//                    }
-//                    showTimeoutMessage(MainFrame);
-//                } catch (InterruptedException e) {
-//                    //e.printStackTrace();
-//                	Thread.currentThread().interrupt(); // 인터럽트 상태를 다시 설정
-//                }
-//            }
-//        });
-//        timerThread.start();
+
         
 	       timer = new Timer(delay, new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
@@ -198,12 +134,12 @@ public class WordQuiz extends JPanel {
         
 		NowScoreLabel = new JLabel("현재 점수 : " + nowScore);
 		NowScoreLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
-		NowScoreLabel.setBounds(964, 270, 300, 70);
+		NowScoreLabel.setBounds(968, 297, 300, 70);
 		add(NowScoreLabel);
 		
 		UserLifeLabel = new JLabel("라이프 : " + userLife);
 		UserLifeLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
-		UserLifeLabel.setBounds(964, 390, 300, 70);
+		UserLifeLabel.setBounds(968, 417, 300, 70);
 		add(UserLifeLabel);
 		
 	}
@@ -218,12 +154,12 @@ public class WordQuiz extends JPanel {
         }
         Thread currentTimerThread = timerThread;
         exitDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "돌아가기", true);
-        exitDialog.setLayout(null);
+        exitDialog.getContentPane().setLayout(null);
         JLabel exitLabel = new JLabel("정말로 퀴즈를 종료하시겠습니까?");
 		exitLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		exitLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
 		exitLabel.setBounds(42, 56, 300, 30);
-        exitDialog.add(exitLabel);
+        exitDialog.getContentPane().add(exitLabel);
         exitDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         
@@ -238,7 +174,7 @@ public class WordQuiz extends JPanel {
 			}
 		});
 		exitButton.setBounds(42, 133, 120, 40);
-		exitDialog.add(exitButton);
+		exitDialog.getContentPane().add(exitButton);
 		
 		JButton resumeButton = new JButton("아니오 (N)");
 		resumeButton.setForeground(new Color(192, 192, 192));
@@ -246,12 +182,12 @@ public class WordQuiz extends JPanel {
 		resumeButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 18));
 		resumeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				startTimer(MainFrame);
+				startTimer(MainFrame, remainingTime);
 				exitDialog.dispose();
 			}
 		});
 		resumeButton.setBounds(210, 133, 120, 40);
-		exitDialog.add(resumeButton);
+		exitDialog.getContentPane().add(resumeButton);
 
         exitDialog.setSize(400, 250);
         exitDialog.setLocationRelativeTo((Frame) SwingUtilities.getWindowAncestor(this)); // 부모 프레임 중앙에 표시
@@ -282,17 +218,8 @@ public class WordQuiz extends JPanel {
         resultDialog.getContentPane().add(resultLabel);
         resultDialog.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-        int closeDelay = 3000;
-//        int popuptime = 1;
-//        JLabel timeLabel = new JLabel();
-//        timeLabel.setText(popuptime + " 초 후 다음 문제 시작");
-//        timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//        timeLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
-//        timeLabel.setForeground(new Color(0, 0, 0));
-//		timeLabel.setBackground(new Color(0, 0, 0));
-//		timeLabel.setBounds(150, 300, 300, 100);
-//		resultDialog.getContentPane().add(timeLabel);
-//		resultDialog.getContentPane().setLayout(null);
+        int closeDelay = 2000;
+
         Timer closeTimer = new Timer(closeDelay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -307,82 +234,6 @@ public class WordQuiz extends JPanel {
         resultDialog.setVisible(true);
     }
 	
-    
-//    // 정답 체크 및 팝업창 표시
-//    private void checkAnswer(String selectedMeaning, MainUI MainFrame) {
-//        timerThread.interrupt(); // 정답을 선택하면 스레드를 중지
-//        String correctWord = wordAnswer; // 현재 표시된 영어 단어
-//        
-//        // 정답과 오답 판단
-//        if (selectedMeaning.equals(correctWord)) {
-//            showResultDialog("정답!", true);
-//            nowScore += 10;
-//            
-//            wordLabel.setText("2번 문제");
-//            // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
-//            choiceButton_1.setText("1..");
-//            choiceButton_2.setText("2번 답");
-//            choiceButton_3.setText("3..");
-//            choiceButton_4.setText("4..");
-//            updateLabels();
-//            
-//            // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
-//            remainingTime = 7;
-//            timerThread = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        for (; remainingTime >= 0; remainingTime--) {
-//                        	updateLabels();
-//                        	updateRemainingTime();
-//                            Thread.sleep(1000); // 1초 대기
-//                        }
-//                        showTimeoutMessage(MainFrame);
-//                    } catch (InterruptedException e) {
-//                        //e.printStackTrace();
-//                        Thread.currentThread().interrupt(); // 인터럽트 상태를 다시 설정
-//                    }
-//                }
-//            });
-//            startTimer(MainFrame);
-//        } else {
-//            showResultDialog("오답...", false);
-//            userLife--;
-//            if (userLife <= 0) {
-//                showResultDialog("게임 종료. 라이프가 모두 소진되었습니다.", false);
-//                MainFrame.showPanel("wordMenuPage");
-//            }
-//            else{
-//                wordLabel.setText("2번 문제");
-//             // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
-//                choiceButton_1.setText("1..");
-//                choiceButton_2.setText("2번 답");
-//                choiceButton_3.setText("3..");
-//                choiceButton_4.setText("4..");
-//                updateLabels();
-//                
-//                // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
-//                remainingTime = 7;
-//                timerThread = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            for (; remainingTime >= 0; remainingTime--) {
-//                            	updateLabels();
-//                            	updateRemainingTime();
-//                                Thread.sleep(1000); // 1초 대기
-//                            }
-//                            showTimeoutMessage(MainFrame);
-//                        } catch (InterruptedException e) {
-//                            //e.printStackTrace();
-//                            Thread.currentThread().interrupt(); // 인터럽트 상태를 다시 설정
-//                        }
-//                    }
-//                });
-//                startTimer(MainFrame);
-//            }
-//        }
-//    }
 
     /**
      * 시간 초과 메시지 표시 메서드
@@ -413,21 +264,6 @@ public class WordQuiz extends JPanel {
             // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
             remainingTime = 7;
             startTimer(MainFrame);
-//            timerThread = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        for (; remainingTime >= 0; remainingTime--) {
-//                        	updateLabels();
-//                        	updateRemainingTime();
-//                            Thread.sleep(1000); // 1초 대기
-//                        }
-//                        showTimeoutMessage(MainFrame);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
         }
         // startTimer(MainFrame);
     }
@@ -527,107 +363,6 @@ public class WordQuiz extends JPanel {
         answerChecked = true;
     }
     
-    
-//    private void checkAnswer(String selectedMeaning, MainUI MainFrame) {
-//        timerThread.interrupt(); // 정답을 선택하면 스레드를 중지
-//        String correctWord = wordAnswer; // 현재 표시된 영어 단어
-//
-//        // 정답과 오답 판단
-//        if (selectedMeaning.equals(correctWord)) {
-//            // showResultDialog("정답!", true);
-//            nowScore += 10;
-//
-//            // 버튼 색상 변경
-//            getSelectedButton(selectedMeaning).setBackground(Color.GREEN);
-//         // 대기 시간 추가 (2초)
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
-//
-//            // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
-//            choiceButton_1.setText("1..");
-//            choiceButton_2.setText("2번 답");
-//            choiceButton_3.setText("3..");
-//            choiceButton_4.setText("4..");
-//            updateLabels();
-//            resetButtonColors();
-//
-//            // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
-//            remainingTime = 7;
-//            timerThread = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        for (; remainingTime >= 0; remainingTime--) {
-//                            updateLabels();
-//                            updateRemainingTime();
-//                            Thread.sleep(1000); // 1초 대기
-//                        }
-//                        showTimeoutMessage(MainFrame);
-//                    } catch (InterruptedException e) {
-//                        // e.printStackTrace();
-//                        Thread.currentThread().interrupt(); // 인터럽트 상태를 다시 설정
-//                    }
-//                }
-//            });
-//            startTimer(MainFrame);
-//        } else {
-//            // showResultDialog("오답...", false);
-//            userLife--;
-//
-//            if (userLife <= 0) {
-//                showResultDialog("게임 종료. 라이프가 모두 소진되었습니다.", false);
-//                MainFrame.showPanel("wordMenuPage");
-//            } else {
-////                // 오답인 버튼 색상 변경
-////                getSelectedButton(selectedMeaning).setBackground(Color.RED);
-//             // 정답인 버튼 색상 변경
-//                getCorrectButton(correctWord).setBackground(Color.GREEN);
-//
-//                // 대기 시간 추가 (2초)
-//                try {
-//                    Thread.sleep(2000);
-//                } catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt();
-//                }
-//                wordLabel.setText("2번 문제");
-//                // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
-//                choiceButton_1.setText("1..");
-//                choiceButton_2.setText("2번 답");
-//                choiceButton_3.setText("3..");
-//                choiceButton_4.setText("4..");
-//                updateLabels();
-//                resetButtonColors();
-//                
-//
-//
-//                // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
-//                remainingTime = 7;
-//                timerThread = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            for (; remainingTime >= 0; remainingTime--) {
-//                                updateLabels();
-//                                updateRemainingTime();
-//                                Thread.sleep(1000); // 1초 대기
-//                            }
-//                            showTimeoutMessage(MainFrame);
-//                        } catch (InterruptedException e) {
-//                            // e.printStackTrace();
-//                            Thread.currentThread().interrupt(); // 인터럽트 상태를 다시 설정
-//                        } finally {
-//                        	// answerChecked = false;
-//                        }
-//                    }
-//                });
-//                startTimer(MainFrame);
-//            }
-//            resetButtonColors();
-//        }
-//    }
 
     // 버튼 색상 초기화 메서드
     private void resetButtonColors() {
@@ -696,6 +431,34 @@ public class WordQuiz extends JPanel {
                     timerRunning = true; // 타이머 동작 플래그 설정
                     for (remainingTime = 7; remainingTime >= 0 && timerRunning; remainingTime--) {
                     	updateRemainingTime();
+                        Thread.sleep(1000); // 1초 대기
+                    }
+                    if (timerRunning) {
+                        showTimeoutMessage(MainFrame);
+                    }
+                } catch (InterruptedException e) {
+                    // 타이머 중단 시 발생하는 예외 처리
+                    Thread.currentThread().interrupt(); // 인터럽트 상태를 다시 설정
+                } finally {
+                    timerRunning = false; // 타이머 종료 시 플래그 설정
+                }
+            }
+        });
+        timerThread.start();
+        timer.start();
+    }
+    
+    public void startTimer(MainUI MainFrame, int initialTime) {
+        // 시작 전에 이전 타이머를 중지
+        stopTimer();
+
+        timerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    timerRunning = true; // 타이머 동작 플래그 설정
+                    for (remainingTime = initialTime; remainingTime >= 0 && timerRunning; remainingTime--) {
+                        updateRemainingTime();
                         Thread.sleep(1000); // 1초 대기
                     }
                     if (timerRunning) {
