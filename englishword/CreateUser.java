@@ -18,7 +18,7 @@ public class CreateUser extends JPanel {
 	 * Create the panel.
 	 */
 //	public CreateUser(JPanel startPage) {
-	public CreateUser(MainUI MainFrame) {
+	public CreateUser(MainUI mainUI) {
 		UserDBConnection DBConn = new UserDBConnection();
 		DBConn.DB_Connect();
 		makeUser mu = new makeUser();
@@ -84,7 +84,7 @@ public class CreateUser extends JPanel {
 						DBConn.NewUser(mu.name, mu.diff);
 						String[] list = DBConn.BringUser();
 						JOptionPane.showMessageDialog(null, "유저가 생성되었습니다.", "유저 생성", JOptionPane.WARNING_MESSAGE);
-						MainFrame.showPanel("startPage", list);
+						mainUI.showPanel("startPage", list);
 					} else {
 					    // 사용자에게 유효한 값을 입력하라는 메시지를 표시하거나 다른 처리 수행
 					    JOptionPane.showMessageDialog(null, "Please enter a valid value.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -106,7 +106,7 @@ public class CreateUser extends JPanel {
 				String[] list;
 				try {
 					list = DBConn.BringUser();
-					MainFrame.showPanel("startPage", list);
+					mainUI.showPanel("startPage", list);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

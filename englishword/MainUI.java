@@ -1,41 +1,46 @@
 package englishword;
 
+import userinfoevent.*;
 import DB.*;
+
 import java.awt.EventQueue;
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.*;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Panel;
 import java.awt.FlowLayout;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JList;
 import java.awt.Window.Type;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MainUI extends JFrame {
+	
+	
+//	public static DefaultListModel<String> getListModel() {
+//	    return listModel;
+//	}
 
 	private static final long serialVersionUID = 1L;
+	WordListHandler wordListHandler = new WordListHandler();
+//	UserInfoSubscriber subscriber = new UserInfoSubscriber();
+//    UserInfoPublisher publisher = new UserInfoPublisher();
 	private JPanel mainPanel;
 	private CardLayout cardLayout;
-	DefaultListModel<String> listModel = new DefaultListModel<>();
+	public DefaultListModel<String> listModel = new DefaultListModel<>();
+	public static String usname;
 	
 	/**
 	 * Launch the application.
 	 * @throws SQLException 
 	 */
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -61,6 +66,7 @@ public class MainUI extends JFrame {
 		for (String s : name) {
 		    listModel.addElement(s);
 		}
+//	    publisher.addUserInfoListener(subscriber);
 		setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 15));
 		setTitle("영단어 학습");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,22 +92,6 @@ public class MainUI extends JFrame {
 		startPage.setBounds(140, 120, 1000, 550);
 		mainPanel.add(startPage, "startPage");
 		startPage.setLayout(null);
-		
-		// 유저 생성 화면
-//		CreateUser createUserPage = new CreateUser(startPage);
-		CreateUser createUserPage = new CreateUser(this);
-		mainPanel.add(createUserPage, "createUserPage");
-		createUserPage.setVisible(false);
-		
-		// 메인 화면
-		WordMenu wordMenuPage = new WordMenu(this);
-		mainPanel.add(wordMenuPage, "wordMenuPage");
-		wordMenuPage.setVisible(false);	
-		
-		// 단어 퀴즈 화면
-		WordQuiz wordQuizPage = new WordQuiz(this);
-		mainPanel.add(wordQuizPage, "wordQuizPage");
-		wordQuizPage.setVisible(false);
 	
 		
 		// 메인 화면 상단 유저 정보
@@ -118,6 +108,17 @@ public class MainUI extends JFrame {
 		mainName.setBounds(500, 22, 300, 72);
 		startPage.add(mainName);
 
+		// 유저 목록
+		JPanel UserListPanel = new JPanel();
+		UserListPanel.setBounds(200, 145, 800, 360);
+		startPage.add(UserListPanel);
+		UserListPanel.setLayout(null);
+		
+		JList<String> list = new JList<>(listModel);
+		list.setBounds(10, 10, 747, 340); // Set the bounds for the JList itself
+		list.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
+		UserListPanel.add(list);
+//		list.setSelectedIndex(0);
 		
 		
 		// 유저 생성 버튼
@@ -139,6 +140,8 @@ public class MainUI extends JFrame {
 		updateButton.setBackground(new Color(245, 245, 245));
 		updateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String selecteduser = list.getSelectedValue();
+				showPanel("editUserPage", none);
 			}
 		});
 		updateButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
@@ -150,47 +153,90 @@ public class MainUI extends JFrame {
 		deleteButton.setBackground(new Color(245, 245, 245));
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+					try {
+						String username = (String) list.getSelectedValue();
+						int result = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "유저 삭제",JOptionPane.OK_CANCEL_OPTION);
+						if(result == 0) {
+							DBConn.DeleteUser(username);
+							JOptionPane.showMessageDialog(null, "유저가 삭제되었습니다.", "유저 삭제", JOptionPane.WARNING_MESSAGE);
+							String[] name = DBConn.BringUser();
+							showPanel("startPage", name);
+						} else {
+							String[] name = DBConn.BringUser();
+							showPanel("startPage", name);
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 			}
 		});
 		deleteButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
 		deleteButton.setBounds(1057, 435, 130, 70);
 		startPage.add(deleteButton);
 		
-		// 미구현 - 유저 목록
-		JPanel UserListPanel = new JPanel();
-		UserListPanel.setBounds(200, 145, 800, 360);
-		startPage.add(UserListPanel);
-		UserListPanel.setLayout(null);
-		
-		JList<String> list = new JList<>(listModel);
-		list.setBounds(10, 10, 747, 340); // Set the bounds for the JList itself
-		UserListPanel.add(list);
 		
 		// 메인 화면 버튼
 		JButton startButton = new JButton("시 작");
-		startButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				userDetailHead.setVisible(true);
-//				wordMenuPage.setVisible(true);
-//				mainName.setVisible(false);
-////				startPage.setVisible(false);
-//				userDetailHead.setVisible(true);
-				showPanel("wordMenuPage", none);
-//				userDetailHead.setVisible(true);
-			}
-		});
 		startButton.setForeground(new Color(255, 255, 255));
 		startButton.setBackground(new Color(173, 216, 230));
 		startButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
 		startButton.setBounds(540, 600, 200, 70);
+		startButton.setEnabled(false);
 		startPage.add(startButton);
+		
+		// 유저 생성 화면
+//		CreateUser createUserPage = new CreateUser(startPage);
+		CreateUser createUserPage = new CreateUser(this);
+		mainPanel.add(createUserPage, "createUserPage");
+		createUserPage.setVisible(false);
+	
+		
+		// 단어 퀴즈 화면
+		WordQuiz wordQuizPage = new WordQuiz(this);
+		mainPanel.add(wordQuizPage, "wordQuizPage");
+		wordQuizPage.setVisible(false);
+		
+		// 메인 화면
+		WordMenu wordMenuPage = new WordMenu(this, wordQuizPage);
+		mainPanel.add(wordMenuPage, "wordMenuPage");
+		wordMenuPage.setVisible(false);	
+		
+//		EngStudy engStudyPage = new EngStudy(this);
+//		mainPanel.add(engStudyPage, "engStudyPage");
+//		engStudyPage.setVisible(false);
+		
+		
+		list.addListSelectionListener((ListSelectionListener) new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                // 아무 아이템도 선택되지 않았으면 버튼 비활성화, 선택되었으면 활성화
+            	String itemname = list.getSelectedValue();
+            	wordListHandler.setSelectedWord(itemname);
+                startButton.setEnabled(!list.isSelectionEmpty());
+            }
+        });
+		startButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//					userDetailHead.setVisible(true);
+//					wordMenuPage.setVisible(true);
+//					mainName.setVisible(false);
+//					startPage.setVisible(false);
+//					userDetailHead.setVisible(true);
+					String[] userinfo;
+					try {
+						userinfo = DBConn.BringUserInfo(list.getSelectedValue());
+						showPanel("wordMenuPage", userinfo);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+//					userDetailHead.setVisible(true);
+		}});
 	}
-	public void showPanel(String panelName, String[] list) {
+	public void showPanel(String panelName, String[] list){
 		cardLayout.show(mainPanel, panelName);
-		if (panelName.equals("startPage")) {
-			listModel.clear();
-			for(int i=0;i<list.length;i++)
-				listModel.addElement(list[i]);
-	    }
+		    listModel.clear();
+		    for (int i = 0; i < list.length; i++)
+		        listModel.addElement(list[i]);
 	}
+
 }

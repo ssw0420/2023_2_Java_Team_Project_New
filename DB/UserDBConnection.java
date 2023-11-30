@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class UserDBConnection extends DBConnection{
 	public String[] BringUser() throws SQLException{ // 유저 정보 불러오기 메소드
-		String query = "select * from USERINFO";
+		String query = "select * from USERINFO order by USERNUMBER ASC";
 		ArrayList<String> nameList = new ArrayList<>();
 		// Vector<String> dataVector = new Vector<>();
 		try { DB_Connect();
@@ -26,14 +26,13 @@ public class UserDBConnection extends DBConnection{
         return nameArray;
 		}
 	
-	public void DeleteUser() throws SQLException{ // 유저 삭제 메소드
-		String query = "delete from USERINFO where USERNAME IS ?";
+	public void DeleteUser(String username) throws SQLException{ // 유저 삭제 메소드
+		String query = "delete from USERINFO where USERNAME = ?";
 		try { DB_Connect();
-		Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(query);
-		while (rs.next()) {
-		// 명령 입력
-		}
-		stmt.close(); rs.close();
+		PreparedStatement pstmt = con.prepareStatement(query);
+		pstmt.setString(1, username);
+		pstmt.executeUpdate();
+		pstmt.close();
 		}
 		catch (SQLException e){ e.printStackTrace();
 		} finally { con.close(); }
@@ -62,6 +61,33 @@ public class UserDBConnection extends DBConnection{
 		}
 		catch (SQLException e){ e.printStackTrace();
 		} finally { con.close(); }
+		}
+	
+	// 선택한 유저의 정보를 가져오는 메소드
+	public String[] BringUserInfo(String name) throws SQLException{ 
+		String query = "select * from USERINFO where USERNAME = ?";
+		ArrayList<String> userinfo = new ArrayList<>();
+		try { DB_Connect();
+		PreparedStatement pstmt = con.prepareStatement(query);
+		pstmt.setString(1, name);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+            String username = rs.getString("USERNAME");
+            userinfo.add(username);
+            String userlevel = rs.getString("USERLEVEL");
+            userinfo.add(userlevel);
+            String userhighscore = rs.getString("USERHIGHSCORE");
+            userinfo.add(userhighscore);
+            String userlastword = rs.getString("USERLASTWORD");
+            userinfo.add(userlastword);
+		}
+		pstmt.close(); rs.close();
+		}
+		catch (SQLException e){ e.printStackTrace();
+		} finally { con.close(); }
+        //return dataVector;
+		String[] userArray = userinfo.toArray(new String[0]);
+        return userArray;
 		}
 
 }
