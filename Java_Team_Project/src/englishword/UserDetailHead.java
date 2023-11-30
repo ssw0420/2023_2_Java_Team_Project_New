@@ -22,7 +22,7 @@ public class UserDetailHead extends JPanel {
 		setLayout(null);
 		
 		JLabel UserNameLabel = new JLabel("사용자 : " + userName);
-		UserNameLabel.setForeground(new Color(0, 0, 128));
+		UserNameLabel.setForeground(new Color(0, 0, 0));
 		UserNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		UserNameLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
 		UserNameLabel.setBounds(50, 12, 254, 40);
@@ -30,14 +30,14 @@ public class UserDetailHead extends JPanel {
 		
 		JLabel UserLevelLabel = new JLabel("단계 : " + userLevel);
 		UserLevelLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		UserLevelLabel.setForeground(new Color(0, 0, 128));
+		UserLevelLabel.setForeground(new Color(0, 0, 0));
 		UserLevelLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
 		UserLevelLabel.setBounds(330, 12, 254, 40);
 		add(UserLevelLabel);
 		
 		JLabel UserLevelLabel_1 = new JLabel("최고 점수 : " + userHighScore);
 		UserLevelLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		UserLevelLabel_1.setForeground(new Color(0, 0, 128));
+		UserLevelLabel_1.setForeground(new Color(0, 0, 0));
 		UserLevelLabel_1.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
 		UserLevelLabel_1.setBounds(580, 12, 254, 40);
 		add(UserLevelLabel_1);

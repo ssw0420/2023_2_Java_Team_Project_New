@@ -40,17 +40,19 @@ public class WordQuiz extends JPanel {
 		setLayout(null);
 		
 		UserDetailHead userDetailHead = new UserDetailHead("신승우", "고급", 2100);
-		userDetailHead.setBackground(new Color(230, 230, 250));
+		userDetailHead.setBackground(new Color(230, 230, 230));
 		userDetailHead.setLocation(250, 25);
 		userDetailHead.setSize(800, 70);
 		add(userDetailHead, "userDetailHead");
 		
 		JButton exitButton = new JButton(new ImageIcon("resource/icons/exit_100.png"));
 		exitButton.setBackground(new Color(255, 255, 255));
-		exitButton.setHorizontalAlignment(JButton.CENTER);
+		exitButton.setForeground(new Color(0, 0, 0));
+		exitButton.setHorizontalAlignment(SwingConstants.LEFT);
 		exitButton.setContentAreaFilled(false);
 		exitButton.setOpaque(false);
 		exitButton.setBorder(null);
+		exitButton.setText("  나가기");
 		// .setBorderPainted(false);
 		exitButton.setVerticalAlignment(JButton.CENTER);
 		exitButton.addActionListener(new ActionListener() {
@@ -61,8 +63,8 @@ public class WordQuiz extends JPanel {
 				quizExit(MainFrame);
 			}
 		});
-		exitButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
-		exitButton.setBounds(997, 602, 100, 100);
+		exitButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
+		exitButton.setBounds(950, 602, 400, 100);
 		add(exitButton);
 		
 		// 문제로 표시될 영어 단어

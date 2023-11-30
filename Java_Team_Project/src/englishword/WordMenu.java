@@ -28,7 +28,7 @@ public class WordMenu extends JPanel {
 		setLayout(null);
 		
 		UserDetailHead userDetailHead = new UserDetailHead("신승우", "고급", 2100);
-		userDetailHead.setBackground(new Color(230, 230, 250));
+		userDetailHead.setBackground(new Color(230, 230, 230));
 		userDetailHead.setLocation(250, 25);
 		userDetailHead.setSize(800, 70);
 		add(userDetailHead, "userDetailHead");
@@ -37,41 +37,57 @@ public class WordMenu extends JPanel {
 		JLabel selectMenuLabel = new JLabel("좌측의 메뉴를 선택하세요");
 		selectMenuLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 40));
 		selectMenuLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		selectMenuLabel.setForeground(new Color(0, 0, 128));
+		selectMenuLabel.setForeground(new Color(0, 0, 0));
 		selectMenuLabel.setBackground(new Color(0, 0, 0));
 		selectMenuLabel.setBounds(600, 175, 470, 365);
 		add(selectMenuLabel);
 		
 		
-		JButton wordMemorizeButton = new JButton("영단어 3000 모음");
-		JButton wordQuizButton = new JButton("영단어 퀴즈");
+		JButton wordMemorizeButton = new JButton(new ImageIcon("resource/icons/vocabulary_100.png"));
+		JButton wordQuizButton = new JButton(new ImageIcon("resource/icons/quiz_100.png"));
 		wordMemorizeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				wordMemorizeButton.setBackground(new Color(130, 200, 200));
-				wordQuizButton.setBackground(new Color(175, 238, 238));
+				wordMemorizeButton.setBackground(new Color(100, 100, 100));
+				wordMemorizeButton.setForeground(new Color(100, 100, 100));
+				wordQuizButton.setForeground(new Color(0, 0, 0));
+				wordQuizButton.setBackground(new Color(0, 0, 0));
 				selectNumber = 1;
 				selectMenuLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
 				selectMenuLabel.setText("<html><body>영단어 3000 모음<br><br>사용자가 선택한 단계에 맞는 영어 단어 모음집을 제공합니다.<br><br>초등(초급)<br>중/고등(중급)<br>대학 이상(고급)<br><br>알파벳 순으로 정렬되어 있으며, 마지막에 확인한 단어부터 실행됩니다.<br>");
 			}
 		});
-		wordMemorizeButton.setForeground(new Color(0, 0, 128));
-		wordMemorizeButton.setBackground(new Color(175, 238, 238));
+		wordMemorizeButton.setHorizontalAlignment(SwingConstants.LEFT);
+		wordMemorizeButton.setVerticalAlignment(JButton.CENTER);
+		wordMemorizeButton.setContentAreaFilled(false);
+		wordMemorizeButton.setOpaque(false);
+		wordMemorizeButton.setBorder(null);
+		wordMemorizeButton.setText("  영단어 3000");
+		wordMemorizeButton.setForeground(new Color(0, 0, 0));
+		wordMemorizeButton.setBackground(new Color(0, 0, 0));
 		wordMemorizeButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		wordMemorizeButton.setBounds(70, 175, 320, 125);
+		wordMemorizeButton.setBounds(70, 175, 400, 100);
 		
 		wordQuizButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectNumber = 2;
-				wordMemorizeButton.setBackground(new Color(175, 238, 238));
-				wordQuizButton.setBackground(new Color(130, 200, 200));
+				wordMemorizeButton.setBackground(new Color(0, 0, 0));
+				wordQuizButton.setBackground(new Color(100, 100, 100));
+				wordQuizButton.setForeground(new Color(100, 100, 100));
+				wordMemorizeButton.setForeground(new Color(0, 0, 0));
 				selectMenuLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
-				selectMenuLabel.setText("<html><body>영단어 퀴즈<br><br>사용자가 선택한 단계에 맞는 영어 단어 퀴즈를 제공합니다.<br><br>영어 단어를 보고 화면 상에 띄워진 4개의 뜻 중에서 올바른 것을 선택하세요.<br>문제를 더 빠른 시간에 연속으로 맞출수록 많은 점수가 부여됩니다.<br>5회 오답 시 퀴즈가 종료됩니다.<br>");
+				selectMenuLabel.setText("<html><body>영단어 퀴즈<br><br>사용자가 선택한 단계에 맞는 영어 단어 퀴즈를 제공합니다.<br><br>영어 단어를 보고 화면 상에 띄워진 4개의 뜻 중에서 올바른 것을 선택하세요.<br>문제를 더 빠른 시간에 연속으로 맞출수록 많은 점수가 부여됩니다.<br><br>5회 오답 시 퀴즈가 종료됩니다.<br>");
 			}
 		});
-		wordQuizButton.setForeground(new Color(0, 0, 128));
-		wordQuizButton.setBackground(new Color(175, 238, 238));
+		wordQuizButton.setHorizontalAlignment(SwingConstants.LEFT);
+		wordQuizButton.setVerticalAlignment(JButton.CENTER);
+		wordQuizButton.setContentAreaFilled(false);
+		wordQuizButton.setOpaque(false);
+		wordQuizButton.setBorder(null);
+		wordQuizButton.setText("   영단어 퀴즈");
+		wordQuizButton.setForeground(new Color(0, 0, 0));
+		wordQuizButton.setBackground(new Color(0, 0, 0));
 		wordQuizButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		wordQuizButton.setBounds(70, 415, 320, 125);
+		wordQuizButton.setBounds(70, 415, 400, 100);
 		
 		
 		add(wordMemorizeButton);
@@ -101,9 +117,11 @@ public class WordMenu extends JPanel {
 		MenuStartButton.setBackground(new Color(255, 255, 255));
 		MenuStartButton.setHorizontalAlignment(JButton.CENTER);
 		MenuStartButton.setVerticalAlignment(JButton.CENTER);
-		// MenuStartButton.setBorderPainted(false);
+		MenuStartButton.setContentAreaFilled(false);
+		MenuStartButton.setOpaque(false);
+		MenuStartButton.setBorder(null);
 		MenuStartButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		MenuStartButton.setBounds(700, 600, 170, 100);
+		MenuStartButton.setBounds(700, 550, 200, 150);
 		add(MenuStartButton);
 		
 		JButton UserHomeButton = new JButton(new ImageIcon("resource/icons/home_100.png"));
@@ -117,12 +135,14 @@ public class WordMenu extends JPanel {
 		UserHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectNumber = 0;
-				wordMemorizeButton.setBackground(new Color(175, 238, 238));
-				wordQuizButton.setBackground(new Color(175, 238, 238));
+				wordMemorizeButton.setBackground(new Color(255, 255, 255));
+				wordQuizButton.setBackground(new Color(255, 255, 255));
+				wordMemorizeButton.setForeground(new Color(0, 0, 0));
+				wordQuizButton.setForeground(new Color(0, 0, 0));
 				selectMenuLabel.setText("좌측의 메뉴를 선택하세요");
 				selectMenuLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 40));
 				selectMenuLabel.setHorizontalAlignment(SwingConstants.LEFT);
-				selectMenuLabel.setForeground(new Color(0, 0, 128));
+				selectMenuLabel.setForeground(new Color(0, 0, 0));
 				selectMenuLabel.setBackground(new Color(0, 0, 0));
 				selectMenuLabel.setBounds(600, 175, 470, 365);
 				MainFrame.showPanel("startPage");
