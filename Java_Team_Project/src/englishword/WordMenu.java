@@ -3,6 +3,7 @@ package englishword;
 import java.awt.Color;
 import englishword.MainUI;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -76,7 +77,7 @@ public class WordMenu extends JPanel {
 		add(wordMemorizeButton);
 		add(wordQuizButton);
 		
-		JButton MenuStartButton = new JButton("시 작");
+		JButton MenuStartButton = new JButton(new ImageIcon("resource/icons/start_200.png"));
 		MenuStartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectNumber == 1)
@@ -97,16 +98,23 @@ public class WordMenu extends JPanel {
 				}
 			}
 		});
-		MenuStartButton.setForeground(new Color(0, 0, 128));
+		MenuStartButton.setBackground(new Color(255, 255, 255));
+		MenuStartButton.setHorizontalAlignment(JButton.CENTER);
+		MenuStartButton.setVerticalAlignment(JButton.CENTER);
+		// MenuStartButton.setBorderPainted(false);
 		MenuStartButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		MenuStartButton.setBackground(new Color(175, 238, 238));
-		MenuStartButton.setBounds(700, 600, 225, 60);
+		MenuStartButton.setBounds(700, 600, 170, 100);
 		add(MenuStartButton);
 		
-		JButton btnNewButton = new JButton("사용자 변경");
-		btnNewButton.setBounds(1065, 25, 119, 70);
-		add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton UserHomeButton = new JButton(new ImageIcon("resource/icons/home_100.png"));
+		UserHomeButton.setBounds(1065, 25, 100, 100);
+		UserHomeButton.setHorizontalAlignment(JButton.CENTER);
+		UserHomeButton.setVerticalAlignment(JButton.CENTER);
+		UserHomeButton.setContentAreaFilled(false);
+		UserHomeButton.setOpaque(false);
+		UserHomeButton.setBorder(null);
+		add(UserHomeButton);
+		UserHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectNumber = 0;
 				wordMemorizeButton.setBackground(new Color(175, 238, 238));
@@ -120,8 +128,8 @@ public class WordMenu extends JPanel {
 				MainFrame.showPanel("startPage");
 			}
 		});
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
+		UserHomeButton.setBackground(new Color(255, 255, 255));
+		UserHomeButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
 		
 	}
 }

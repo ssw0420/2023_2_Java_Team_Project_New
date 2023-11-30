@@ -3,22 +3,13 @@ package englishword;
 import java.awt.EventQueue;
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Panel;
 import java.awt.FlowLayout;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JList;
 import java.awt.Window.Type;
 
 public class MainUI extends JFrame {
@@ -110,8 +101,14 @@ public class MainUI extends JFrame {
 		
 		
 		// 유저 생성 버튼
-		JButton createButton = new JButton("생 성");
-		createButton.setBackground(new Color(245, 245, 245));
+		JButton createButton = new JButton(new ImageIcon("resource/icons/add_100.png"));
+		createButton.setBackground(new Color(255, 255, 255));
+		createButton.setHorizontalAlignment(JButton.CENTER);
+		createButton.setVerticalAlignment(JButton.CENTER);
+		createButton.setContentAreaFilled(false);
+		createButton.setOpaque(false);
+		createButton.setBorder(null);
+		// createButton.setBorderPainted(false);
 		createButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				createUserPage.setVisible(true);
@@ -120,29 +117,41 @@ public class MainUI extends JFrame {
 			}
 		});
 		createButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		createButton.setBounds(1057, 145, 130, 70);
+		createButton.setBounds(1057, 145, 100, 100);
 		startPage.add(createButton);
-		
+
 		// 유저 수정 버튼
-		JButton updateButton = new JButton("수 정");
-		updateButton.setBackground(new Color(245, 245, 245));
+		JButton updateButton = new JButton(new ImageIcon("resource/icons/edit_100.png"));
+		updateButton.setBackground(new Color(255, 255, 255));
 		updateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		updateButton.setHorizontalAlignment(JButton.CENTER);
+		updateButton.setVerticalAlignment(JButton.CENTER);
+		updateButton.setContentAreaFilled(false);
+		updateButton.setOpaque(false);
+		updateButton.setBorder(null);
+		// updateButton.setBorderPainted(false);
 		updateButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		updateButton.setBounds(1057, 290, 130, 70);
+		updateButton.setBounds(1057, 290, 100, 100);
 		startPage.add(updateButton);
 		
 		// 유저 삭제 버튼
-		JButton deleteButton = new JButton("삭 제");
-		deleteButton.setBackground(new Color(245, 245, 245));
+		JButton deleteButton = new JButton(new ImageIcon("resource/icons/delete_100.png"));
+		deleteButton.setBackground(new Color(255, 255, 255));
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		deleteButton.setHorizontalAlignment(JButton.CENTER);
+		deleteButton.setVerticalAlignment(JButton.CENTER);
+		deleteButton.setContentAreaFilled(false);
+		deleteButton.setOpaque(false);
+		deleteButton.setBorder(null);
+		// deleteButton.setBorderPainted(false);
 		deleteButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		deleteButton.setBounds(1057, 435, 130, 70);
+		deleteButton.setBounds(1057, 435, 100, 100);
 		startPage.add(deleteButton);
 		
 		// 미구현 - 유저 목록
@@ -156,7 +165,7 @@ public class MainUI extends JFrame {
 		UserListPanel.add(list);
 		
 		// 메인 화면 버튼
-		JButton startButton = new JButton("시 작");
+		JButton startButton = new JButton(new ImageIcon("resource/icons/start_200.png"));
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				userDetailHead.setVisible(true);
@@ -168,10 +177,15 @@ public class MainUI extends JFrame {
 //				userDetailHead.setVisible(true);
 			}
 		});
-		startButton.setForeground(new Color(255, 255, 255));
-		startButton.setBackground(new Color(173, 216, 230));
+		startButton.setHorizontalAlignment(JButton.CENTER);
+		startButton.setVerticalAlignment(JButton.CENTER);
+		startButton.setContentAreaFilled(false);
+		startButton.setOpaque(false);
+		startButton.setBorder(null);
+		// startButton.setBorderPainted(false);
+		startButton.setBackground(new Color(255, 255, 255));
 		startButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		startButton.setBounds(540, 600, 200, 70);
+		startButton.setBounds(540, 520, 200, 150);
 		startPage.add(startButton);
 		
 		
