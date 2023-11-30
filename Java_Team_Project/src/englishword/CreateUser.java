@@ -42,7 +42,7 @@ public class CreateUser extends JPanel {
 			}
 		});
 		createUserButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		createUserButton.setBounds(955, 600, 100, 100);
+		createUserButton.setBounds(955, 544, 100, 100);
 		add(createUserButton);
 		
 		JButton CreateUserCancelButton = new JButton(new ImageIcon("resource/icons/red_cancel_100.png"));
@@ -59,7 +59,7 @@ public class CreateUser extends JPanel {
 		CreateUserCancelButton.setOpaque(false);
 		CreateUserCancelButton.setBorder(null);
 		CreateUserCancelButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		CreateUserCancelButton.setBounds(775, 600, 100, 100);
+		CreateUserCancelButton.setBounds(775, 544, 100, 100);
 		add(CreateUserCancelButton);
 		
 		JLabel CreateUserTitle = new JLabel("사용자 등록");
@@ -105,5 +105,19 @@ public class CreateUser extends JPanel {
 		selectMenuLabel.setBackground(new Color(0, 0, 0));
 		selectMenuLabel.setBounds(679, 144, 470, 365);
 		add(selectMenuLabel);
+		
+		JLabel CancelLabel = new JLabel("취소");
+		CancelLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		CancelLabel.setForeground(new Color(255, 0, 0));
+		CancelLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
+		CancelLabel.setBounds(775, 649, 100, 35);
+		add(CancelLabel);
+		
+		JLabel AcceptLabel = new JLabel("확인");
+		AcceptLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		AcceptLabel.setForeground(new Color(46, 139, 87));
+		AcceptLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
+		AcceptLabel.setBounds(955, 649, 100, 35);
+		add(AcceptLabel);
 	}
 }

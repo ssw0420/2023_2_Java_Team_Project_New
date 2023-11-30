@@ -117,7 +117,7 @@ public class MainUI extends JFrame {
 			}
 		});
 		createButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		createButton.setBounds(1057, 145, 100, 100);
+		createButton.setBounds(1057, 112, 100, 100);
 		startPage.add(createButton);
 
 		// 유저 수정 버튼
@@ -134,7 +134,7 @@ public class MainUI extends JFrame {
 		updateButton.setBorder(null);
 		// updateButton.setBorderPainted(false);
 		updateButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		updateButton.setBounds(1057, 290, 100, 100);
+		updateButton.setBounds(1057, 324, 100, 100);
 		startPage.add(updateButton);
 		
 		// 유저 삭제 버튼
@@ -151,7 +151,7 @@ public class MainUI extends JFrame {
 		deleteButton.setBorder(null);
 		// deleteButton.setBorderPainted(false);
 		deleteButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		deleteButton.setBounds(1057, 435, 100, 100);
+		deleteButton.setBounds(1057, 536, 100, 100);
 		startPage.add(deleteButton);
 		
 		// 미구현 - 유저 목록
@@ -187,6 +187,24 @@ public class MainUI extends JFrame {
 		startButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
 		startButton.setBounds(540, 520, 200, 150);
 		startPage.add(startButton);
+		
+		JLabel addLabel = new JLabel("추가");
+		addLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		addLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
+		addLabel.setBounds(1057, 212, 100, 30);
+		startPage.add(addLabel);
+		
+		JLabel editLabel = new JLabel("수정");
+		editLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		editLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
+		editLabel.setBounds(1057, 424, 100, 30);
+		startPage.add(editLabel);
+		
+		JLabel deleteLabel = new JLabel("삭제");
+		deleteLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		deleteLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
+		deleteLabel.setBounds(1057, 636, 100, 30);
+		startPage.add(deleteLabel);
 		
 		
 	}
