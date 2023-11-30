@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 public class CreateUser extends JPanel {
 
@@ -28,18 +29,23 @@ public class CreateUser extends JPanel {
 		setSize(1280, 800); // 화면 크기 설정
 		setLayout(null);
 		
-		JButton createUserButton = new JButton("등 록");
-		createUserButton.setBackground(new Color(100, 149, 237));
-		createUserButton.setForeground(new Color(240, 255, 255));
+		JButton createUserButton = new JButton(new ImageIcon("resource/icons/green_check_100.png"));
+		createUserButton.setBackground(new Color(255, 255, 255));
+		createUserButton.setHorizontalAlignment(JButton.CENTER);
+		createUserButton.setContentAreaFilled(false);
+		createUserButton.setOpaque(false);
+		createUserButton.setBorder(null);
+//		createUserButton.setBackground(new Color(100, 149, 237));
+//		createUserButton.setForeground(new Color(240, 255, 255));
 		createUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		createUserButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		createUserButton.setBounds(955, 600, 130, 50);
+		createUserButton.setBounds(955, 600, 100, 100);
 		add(createUserButton);
 		
-		JButton CreateUserCancelButton = new JButton("취 소");
+		JButton CreateUserCancelButton = new JButton(new ImageIcon("resource/icons/red_cancel_100.png"));
 		CreateUserCancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				setVisible(false);
@@ -47,10 +53,13 @@ public class CreateUser extends JPanel {
 				MainFrame.showPanel("startPage");
 			}
 		});
-		CreateUserCancelButton.setForeground(new Color(0, 0, 0));
 		CreateUserCancelButton.setBackground(new Color(255, 255, 255));
+		CreateUserCancelButton.setHorizontalAlignment(JButton.CENTER);
+		CreateUserCancelButton.setContentAreaFilled(false);
+		CreateUserCancelButton.setOpaque(false);
+		CreateUserCancelButton.setBorder(null);
 		CreateUserCancelButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-		CreateUserCancelButton.setBounds(775, 600, 130, 50);
+		CreateUserCancelButton.setBounds(775, 600, 100, 100);
 		add(CreateUserCancelButton);
 		
 		JLabel CreateUserTitle = new JLabel("사용자 등록");
