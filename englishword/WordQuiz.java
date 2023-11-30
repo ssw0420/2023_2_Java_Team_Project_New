@@ -1,9 +1,11 @@
 package englishword;
 
+import DB.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.Timer;
 
@@ -11,6 +13,7 @@ import javax.swing.Timer;
 public class WordQuiz extends JPanel {
 
 	String[] none = null;
+	UserDBConnection DBConn = new UserDBConnection();
 	private static final long serialVersionUID = 1L;
 	private JLabel wordLabel;
 	private int nowScore;
@@ -29,14 +32,16 @@ public class WordQuiz extends JPanel {
 	private JButton choiceButton_4;
 	/**
 	 * Create the panel.
+	 * @throws SQLException 
 	 */
-	public WordQuiz(MainUI MainFrame) {
+	public WordQuiz(ActionListener actionListener, String username) throws SQLException {
+		String[] signedinuser = DBConn.BringUserInfo(username);
 		setBackground(new Color(176, 196, 222));
 		setBounds(140, 120, 1000, 550);
 		setSize(1280, 800); // 화면 크기 설정
 		setLayout(null);
 		
-		UserDetailHead userDetailHead = new UserDetailHead("신승우", "고급", 2100);
+		UserDetailHead userDetailHead = new UserDetailHead(signedinuser[0], signedinuser[1], Integer.parseInt(signedinuser[2]));
 		userDetailHead.setBackground(new Color(230, 230, 250));
 		userDetailHead.setLocation(250, 25);
 		userDetailHead.setSize(800, 70);
@@ -48,7 +53,7 @@ public class WordQuiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 //				setVisible(false);
 //				wordMenuPage.setVisible(true);
-				MainFrame.showPanel("wordMenuPage", none);
+				((MainUI) actionListener).showPanel("wordMenuPage", none);
 			}
 		});
 		exitButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 20));
@@ -68,7 +73,7 @@ public class WordQuiz extends JPanel {
 		choiceButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nowWord = choiceButton_1.getText(); // 현재 표시된 영어 단어
-				checkAnswer(nowWord, MainFrame);
+				checkAnswer(nowWord, actionListener);
 			}
 		});
 		choiceButton_1.setBackground(new Color(255, 255, 255));
@@ -80,7 +85,7 @@ public class WordQuiz extends JPanel {
 		choiceButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nowWord = choiceButton_2.getText(); // 현재 표시된 영어 단어
-				checkAnswer(nowWord, MainFrame);
+				checkAnswer(nowWord, actionListener);
 			}
 		});
 		choiceButton_2.setBackground(new Color(255, 255, 255));
@@ -92,7 +97,7 @@ public class WordQuiz extends JPanel {
 		choiceButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nowWord = choiceButton_3.getText(); // 현재 표시된 영어 단어
-				checkAnswer(nowWord, MainFrame);
+				checkAnswer(nowWord, actionListener);
 			}
 		});
 		choiceButton_3.setBackground(new Color(255, 255, 255));
@@ -104,7 +109,7 @@ public class WordQuiz extends JPanel {
 		choiceButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nowWord = choiceButton_4.getText(); // 현재 표시된 영어 단어
-				checkAnswer(nowWord, MainFrame);
+				checkAnswer(nowWord, actionListener);
 			}
 		});
 		choiceButton_4.setBackground(new Color(255, 255, 255));
@@ -186,7 +191,7 @@ public class WordQuiz extends JPanel {
     /**
      * 정답 체크 및 팝업창 표시 메서드
      */
-    private void checkAnswer(String selectedMeaning, MainUI MainFrame) {
+    private void checkAnswer(String selectedMeaning, ActionListener actionListener) {
         timerThread.interrupt(); // 정답을 선택하면 스레드를 중지
         String correctWord = wordLabel.getText(); // 현재 표시된 영어 단어
         if (selectedMeaning.equals(correctWord)) {
@@ -197,7 +202,7 @@ public class WordQuiz extends JPanel {
             userLife--;
             if (userLife <= 0) {
                 showResultDialog("게임 종료. 라이프가 모두 소진되었습니다.", false);
-                MainFrame.showPanel("WordMenu", none);
+                ((MainUI) actionListener).showPanel("WordMenu", none);
             }
         }
         wordLabel.setText("2번 답");

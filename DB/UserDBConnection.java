@@ -63,5 +63,31 @@ public class UserDBConnection extends DBConnection{
 		catch (SQLException e){ e.printStackTrace();
 		} finally { con.close(); }
 		}
+	
+	public String[] BringUserInfo(String name) throws SQLException{ 
+		String query = "select * from USERINFO where USERNAME = ?";
+		ArrayList<String> userinfo = new ArrayList<>();
+		try { DB_Connect();
+		PreparedStatement pstmt = con.prepareStatement(query);
+		pstmt.setString(1, name);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+            String username = rs.getString("USERNAME");
+            userinfo.add(username);
+            String userlevel = rs.getString("USERLEVEL");
+            userinfo.add(userlevel);
+            String userhighscore = rs.getString("USERHIGHSCORE");
+            userinfo.add(userhighscore);
+            String userlastword = rs.getString("USERLASTWORD");
+            userinfo.add(userlastword);
+		}
+		pstmt.close(); rs.close();
+		}
+		catch (SQLException e){ e.printStackTrace();
+		} finally { con.close(); }
+        //return dataVector;
+		String[] userArray = userinfo.toArray(new String[0]);
+        return userArray;
+		}
 
 }
