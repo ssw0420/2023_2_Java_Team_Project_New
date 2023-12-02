@@ -225,8 +225,16 @@ public class WordQuiz extends JPanel {
 		exitButton.setBackground(new Color(255, 255, 255));
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainFrame.showPanel("wordMenuPage", null);
-				exitDialog.dispose();
+				try {
+					String[] currentuserinfo = DBConn.BringUserInfo(MainUI.username);
+					UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
+					new UserDetailHead(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
+					MainFrame.showPanel("wordMenuPage", null);
+					exitDialog.dispose();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		exitButton.setBounds(42, 133, 120, 40);
@@ -311,7 +319,12 @@ public class WordQuiz extends JPanel {
         if(userLife <= 0) {
         	showResultDialog("퀴즈 종료. 라이프가 모두 소진되었습니다.", false);
         	answerChecked = false;
-        	MainFrame.showPanel("wordMenuPage", null);
+        	Scorelink.UpdateScore(cu.username, nowScore);
+			String[] currentuserinfo = DBConn.BringUserInfo(MainUI.username);
+			UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
+			new UserDetailHead(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
+			MainFrame.showPanel("wordMenuPage", null);
+
         }
         else {
         	r.setSeed(System.currentTimeMillis());
@@ -449,7 +462,11 @@ public class WordQuiz extends JPanel {
             if (userLife <= 0) {
                 showResultDialog("게임 종료. 라이프가 모두 소진되었습니다.", false);
                 answerChecked = false;
-                MainFrame.showPanel("wordMenuPage", null);
+                Scorelink.UpdateScore(cu.username, nowScore);
+                String[] currentuserinfo = DBConn.BringUserInfo(MainUI.username);
+    			UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
+    			new UserDetailHead(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
+    			MainFrame.showPanel("wordMenuPage", null);
             } else {
                 // 오답인 버튼 색상 변경
                 getSelectedButton(selectedMeaning).setBackground(new Color(220, 20, 60));
