@@ -2,6 +2,7 @@ package englishword;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,7 +19,13 @@ public class CreateUser extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField UserNameField;
+	private ImageIcon background = new ImageIcon("resource/background/Main_Background.png");
 
+	public void paintComponent(Graphics g) {
+		g.drawImage(background.getImage(), 0, 0, null);
+		setOpaque(false);
+		super.paintComponent(g);
+}
 	/**
 	 * Create the panel.
 	 */
@@ -64,8 +71,8 @@ public class CreateUser extends JPanel {
 		
 		JLabel CreateUserTitle = new JLabel("사용자 등록");
 		CreateUserTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		CreateUserTitle.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 32));
-		CreateUserTitle.setBounds(540, 25, 200, 50);
+		CreateUserTitle.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 40));
+		CreateUserTitle.setBounds(540, 60, 200, 50);
 		add(CreateUserTitle);
 		
 		JLabel UserNameLabel = new JLabel("이        름  :");
@@ -101,7 +108,7 @@ public class CreateUser extends JPanel {
 		JLabel selectMenuLabel = new JLabel("사용자 정보를 입력하세요");
 		selectMenuLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 40));
 		selectMenuLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		selectMenuLabel.setForeground(new Color(0, 0, 128));
+		selectMenuLabel.setForeground(new Color(0, 0, 0));
 		selectMenuLabel.setBackground(new Color(0, 0, 0));
 		selectMenuLabel.setBounds(679, 144, 470, 365);
 		add(selectMenuLabel);

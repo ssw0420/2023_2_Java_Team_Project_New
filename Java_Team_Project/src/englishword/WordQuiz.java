@@ -30,6 +30,13 @@ public class WordQuiz extends JPanel {
 	private boolean timerRunning;
 	private int delay = 1000;
 	public boolean answerChecked; // 사용자가 정답 확인을 완료했는지 여부
+	private ImageIcon background = new ImageIcon("resource/background/Main_Background.png");
+
+	public void paintComponent(Graphics g) {
+		g.drawImage(background.getImage(), 0, 0, null);
+		setOpaque(false);
+		super.paintComponent(g);
+}
 	/**
 	 * Create the panel.
 	 */
@@ -40,8 +47,8 @@ public class WordQuiz extends JPanel {
 		setLayout(null);
 		
 		UserDetailHead userDetailHead = new UserDetailHead("신승우", "고급", 2100);
-		userDetailHead.setBackground(new Color(230, 230, 230));
-		userDetailHead.setLocation(250, 25);
+		userDetailHead.setBackground(new Color(214, 168, 109));
+		userDetailHead.setLocation(250, 50);
 		userDetailHead.setSize(800, 70);
 		add(userDetailHead, "userDetailHead");
 		
@@ -162,6 +169,7 @@ public class WordQuiz extends JPanel {
         }
         Thread currentTimerThread = timerThread;
         exitDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "돌아가기", true);
+        exitDialog.setBackground(new Color(255, 242, 225));
         exitDialog.getContentPane().setLayout(null);
         JLabel exitLabel = new JLabel("정말로 퀴즈를 종료하시겠습니까?");
 		exitLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -211,6 +219,7 @@ public class WordQuiz extends JPanel {
         }
 //        timerThread.interrupt();
         resultDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "진행 중", true); // 부모 프레임을 설정
+        resultDialog.setBackground(new Color(255, 242, 225));
         JLabel resultLabel = new JLabel(message);
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resultLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));

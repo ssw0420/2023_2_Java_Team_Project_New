@@ -1,9 +1,13 @@
 package englishword;
 
 import java.awt.EventQueue;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import com.sun.tools.javac.Main;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Panel;
@@ -21,6 +25,8 @@ public class MainUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+
+	 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -38,6 +44,7 @@ public class MainUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+
 	public MainUI() {	
 		setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 15));
 		setTitle("영단어 학습");
@@ -57,11 +64,19 @@ public class MainUI extends JFrame {
 		setContentPane(mainPanel);
 //		mainPanel.setLayout(null);
 		
+		ImageIcon background;
+		background = new ImageIcon("resource/background/Main_Background.png");
 		
 		// 시작 페이지 화면
-		JPanel startPage = new JPanel();
-		startPage.setBackground(new Color(176, 196, 222));
-		startPage.setBounds(140, 120, 1000, 550);
+		JPanel startPage = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(background.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+//		startPage.setBackground(new Color(176, 196, 222));
+//		startPage.setBounds(140, 120, 1000, 550);
 		mainPanel.add(startPage, "startPage");
 		startPage.setLayout(null);
 		
@@ -95,7 +110,7 @@ public class MainUI extends JFrame {
 		JLabel mainName = new JLabel("영어 단어 학습");
 		mainName.setHorizontalAlignment(SwingConstants.CENTER);
 		mainName.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 40));
-		mainName.setBounds(500, 22, 300, 72);
+		mainName.setBounds(500, 51, 300, 72);
 		startPage.add(mainName);
 
 		
@@ -156,7 +171,9 @@ public class MainUI extends JFrame {
 		
 		// 미구현 - 유저 목록
 		JPanel UserListPanel = new JPanel();
-		UserListPanel.setBounds(200, 145, 800, 360);
+		// 색 변경
+		UserListPanel.setBackground(new Color(250, 220, 180));
+		UserListPanel.setBounds(259, 145, 741, 420);
 		startPage.add(UserListPanel);
 		UserListPanel.setLayout(null);
 		
@@ -185,7 +202,7 @@ public class MainUI extends JFrame {
 		// startButton.setBorderPainted(false);
 		startButton.setBackground(new Color(255, 255, 255));
 		startButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		startButton.setBounds(540, 520, 200, 150);
+		startButton.setBounds(540, 575, 200, 150);
 		startPage.add(startButton);
 		
 		JLabel addLabel = new JLabel("추가");
