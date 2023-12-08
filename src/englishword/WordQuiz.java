@@ -51,7 +51,8 @@ public class WordQuiz extends JPanel {
 		
 		String[] wordeng = WDBConn.BringWordEng(name);
 		String[] wordkor = WDBConn.BringWordKor(name);
-		
+    	System.out.println(ansnum);
+    	System.out.println(anstype);
 		cu.username = usinfo[0];
 		cu.userlevel = usinfo[1];
 		cu.userhighscore = Integer.parseInt(usinfo[2]);
@@ -109,7 +110,7 @@ public class WordQuiz extends JPanel {
 				choiceAnswer = choiceButton_1.getText(); // 현재 표시된 영어 단어
 				try {
 					checkAnswer(choiceAnswer, MainFrame);
-				} catch (SQLException e1) {
+                	} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -308,11 +309,11 @@ public class WordQuiz extends JPanel {
     	
     	String[] wordeng = WDBConn.BringWordEng(MainUI.username);
     	String[] wordkor = WDBConn.BringWordKor(MainUI.username);
-    	wordAnswer = wordkor[ansnum];
     	
+    	wordAnswer = wordkor[ansnum];
     	timerRunning = false;
     	String correctWord = wordAnswer;
-    	showResultDialog("시간 초과! 정답은 " + correctWord, false);
+    	showResultDialog("시간 초과! 정답은 '" + correctWord + "'", false);
         userLife--;
         
 
@@ -327,10 +328,9 @@ public class WordQuiz extends JPanel {
 
         }
         else {
-        	r.setSeed(System.currentTimeMillis());
-        	ansnum = r.nextInt(13);
+        	ansnum = r.nextInt(wordeng.length);
         	anstype = r.nextInt(3);
-        	if(ansnum>10) ansnum = 10;
+        	if(ansnum > wordeng.length-3) ansnum = wordeng.length-3;
         	switch(anstype) {
         	case 0:
         		wordLabel.setText(wordeng[ansnum]);
@@ -340,6 +340,7 @@ public class WordQuiz extends JPanel {
                    choiceButton_3.setText(wordkor[ansnum+2]);
                    choiceButton_4.setText(wordkor[ansnum+3]);
                    updateLabels();
+                   break;
         	case 1:
         		wordLabel.setText(wordeng[ansnum]);
                 // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
@@ -348,6 +349,7 @@ public class WordQuiz extends JPanel {
                    choiceButton_3.setText(wordkor[ansnum+3]);
                    choiceButton_4.setText(wordkor[ansnum+2]);
                    updateLabels();
+                   break;
         	case 2:
         		wordLabel.setText(wordeng[ansnum]);
                 // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
@@ -356,6 +358,7 @@ public class WordQuiz extends JPanel {
                    choiceButton_3.setText(wordkor[ansnum]);
                    choiceButton_4.setText(wordkor[ansnum+3]);
                    updateLabels();
+                   break;
         	case 3:
         		wordLabel.setText(wordeng[ansnum]);
                 // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
@@ -364,6 +367,7 @@ public class WordQuiz extends JPanel {
                    choiceButton_3.setText(wordkor[ansnum+3]);
                    choiceButton_4.setText(wordkor[ansnum]);
                    updateLabels();
+                   break;
         	}
             
             // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
@@ -373,8 +377,7 @@ public class WordQuiz extends JPanel {
         // startTimer(MainFrame);
     }
     
-    private void checkAnswer(String selectedMeaning, MainUI MainFrame) throws SQLException {
-    	  	
+    private void checkAnswer(String selectedMeaning, MainUI MainFrame) throws SQLException { 	
     	String[] wordeng = WDBConn.BringWordEng(MainUI.username);
     	String[] wordkor = WDBConn.BringWordKor(MainUI.username);
     	wordAnswer = wordkor[ansnum];
@@ -407,9 +410,9 @@ public class WordQuiz extends JPanel {
                         resetButtonColors();
                         
                         r.setSeed(System.currentTimeMillis());
-                    	ansnum = r.nextInt(13);
+                        ansnum = r.nextInt(wordeng.length);
                     	anstype = r.nextInt(3);
-                    	if(ansnum>10) ansnum = 10;
+                    	if(ansnum > wordeng.length-3) ansnum = wordeng.length-3;
                     	switch(anstype) {
                     	case 0:
                     		wordLabel.setText(wordeng[ansnum]);
@@ -419,6 +422,7 @@ public class WordQuiz extends JPanel {
                                choiceButton_3.setText(wordkor[ansnum+2]);
                                choiceButton_4.setText(wordkor[ansnum+3]);
                                updateLabels();
+                               break;
                     	case 1:
                     		wordLabel.setText(wordeng[ansnum]);
                             // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
@@ -427,6 +431,7 @@ public class WordQuiz extends JPanel {
                                choiceButton_3.setText(wordkor[ansnum+3]);
                                choiceButton_4.setText(wordkor[ansnum+2]);
                                updateLabels();
+                               break;
                     	case 2:
                     		wordLabel.setText(wordeng[ansnum]);
                             // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
@@ -435,6 +440,7 @@ public class WordQuiz extends JPanel {
                                choiceButton_3.setText(wordkor[ansnum]);
                                choiceButton_4.setText(wordkor[ansnum+3]);
                                updateLabels();
+                               break;
                     	case 3:
                     		wordLabel.setText(wordeng[ansnum]);
                             // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
@@ -443,6 +449,7 @@ public class WordQuiz extends JPanel {
                                choiceButton_3.setText(wordkor[ansnum+3]);
                                choiceButton_4.setText(wordkor[ansnum]);
                                updateLabels();
+                               break;
                     	}
 
                         // 시간 초기화 및 스레드 재시작 (새로운 문제 시작)
@@ -485,9 +492,9 @@ public class WordQuiz extends JPanel {
                             resetButtonColors();
 
                             r.setSeed(System.currentTimeMillis());
-                        	ansnum = r.nextInt(13);
+                            ansnum = r.nextInt(wordeng.length);
                         	anstype = r.nextInt(3);
-                        	if(ansnum>10) ansnum = 10;
+                        	if(ansnum > wordeng.length-3) ansnum = wordeng.length-3;
                         	switch(anstype) {
                         	case 0:
                         		wordLabel.setText(wordeng[ansnum]);
@@ -497,6 +504,7 @@ public class WordQuiz extends JPanel {
                                    choiceButton_3.setText(wordkor[ansnum+2]);
                                    choiceButton_4.setText(wordkor[ansnum+3]);
                                    updateLabels();
+                                   break;
                         	case 1:
                         		wordLabel.setText(wordeng[ansnum]);
                                 // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
@@ -505,6 +513,7 @@ public class WordQuiz extends JPanel {
                                    choiceButton_3.setText(wordkor[ansnum+3]);
                                    choiceButton_4.setText(wordkor[ansnum+2]);
                                    updateLabels();
+                                   break;
                         	case 2:
                         		wordLabel.setText(wordeng[ansnum]);
                                 // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
@@ -513,6 +522,7 @@ public class WordQuiz extends JPanel {
                                    choiceButton_3.setText(wordkor[ansnum]);
                                    choiceButton_4.setText(wordkor[ansnum+3]);
                                    updateLabels();
+                                   break;
                         	case 3:
                         		wordLabel.setText(wordeng[ansnum]);
                                 // 여기에 답 부분 세팅 추가해야 합니다.. DB 연결 후 확인 부탁드려요 String으로 값 계속 변경하는건 불가능하네요
@@ -521,6 +531,7 @@ public class WordQuiz extends JPanel {
                                    choiceButton_3.setText(wordkor[ansnum+3]);
                                    choiceButton_4.setText(wordkor[ansnum]);
                                    updateLabels();
+                                   break;
                         	}
                             resetButtonColors();
 

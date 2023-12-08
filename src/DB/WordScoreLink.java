@@ -12,10 +12,15 @@ public class WordScoreLink extends DBConnection{
 		try { DB_Connect();
 		PreparedStatement pstmt = con.prepareStatement(scorequery);
 		PreparedStatement pstmt1 = con.prepareStatement(query);
+		int highestscore = 0;
 		pstmt.setString(1, user);
-		int userhighscore = pstmt.executeUpdate();
-		int highscore = score > userhighscore? score : userhighscore;
-		pstmt1.setInt(1, highscore);
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			int highscore = rs.getInt(1);
+			highestscore = score > highscore? score : highscore;
+		}
+		
+		pstmt1.setInt(1, highestscore);
 		pstmt1.setString(2, user);
 		pstmt1.executeUpdate();
 		pstmt.close(); pstmt1.close();

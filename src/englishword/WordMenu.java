@@ -29,7 +29,7 @@ public class WordMenu extends JPanel {
 	 * @throws SQLException 
 	 */
 //	public WordMenu(JPanel startPage, JPanel mainPanel) {
-	public WordMenu(MainUI MainFrame, WordQuiz wordQuizPage, String name) throws SQLException {
+	public WordMenu(MainUI MainFrame, WordQuiz wordQuizPage, WordStudy wordStudyPage, String name) throws SQLException {
 		cu.username = usinfo[0];
 		cu.userlevel = usinfo[1];
 		cu.userhighscore = Integer.parseInt(usinfo[2]);
@@ -111,17 +111,14 @@ public class WordMenu extends JPanel {
 		MenuStartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectNumber == 1) // 단어장 선택
-				{
+				try {
 //					setVisible(false);
 //					wordQuizPage.setVisible(true);
-					String[] list;
-					try {
-						list = DBConn.BringUser();
-						MainFrame.showPanel("startPage", list);
+					String[] list = DBConn.BringUserInfo(MainUI.username);
+					MainFrame.showPanel("wordStudyPage", list);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
 				}
 				else if (selectNumber == 2) // 단어 퀴즈
 				{
@@ -130,6 +127,15 @@ public class WordMenu extends JPanel {
 					wordQuizPage.showResultDialog("퀴즈 시작 !", true);
 					wordQuizPage.initQuiz();
 					wordQuizPage.answerChecked = false;
+					try {
+						String[] currentuserinfo;
+						currentuserinfo = DBConn.BringUserInfo(MainUI.username);
+						UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
+						new UserDetailHead(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					MainFrame.showPanel("wordQuizPage", null);
 					wordQuizPage.startTimer(MainFrame);
 				}

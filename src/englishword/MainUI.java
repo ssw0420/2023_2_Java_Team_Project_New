@@ -271,11 +271,22 @@ public class MainUI extends JFrame implements ActionListener {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
     		}
+            
+            WordStudy wordStudyPage = null;
+			try {
+				wordStudyPage = new WordStudy(this, username);
+				mainPanel.add(wordStudyPage, "wordStudyPage");
+	    		wordStudyPage.setVisible(false);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    		
 
             // 메인 화면
             WordMenu wordMenuPage;
             try {
-    			wordMenuPage = new WordMenu(this, wordQuizPage, username);
+    			wordMenuPage = new WordMenu(this, wordQuizPage, wordStudyPage, username);
     			mainPanel.add(wordMenuPage, "wordMenuPage");
     			wordMenuPage.setVisible(false);
     		} catch (SQLException e1) {

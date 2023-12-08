@@ -84,7 +84,7 @@ public class WordDBConnection extends DBConnection{
 		else if(difficulty.equals("대학")) query = "select * from EXPERTLEVELWORD";
 		Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {
-			String we = rs.getString("WORDENG");
+			String we = rs.getString("WORDPRONUNCIATION");
 			wordPro.add(we);
 		}
 		pstmt.close(); diff.close(); stmt.close(); rs.close();
@@ -96,7 +96,7 @@ public class WordDBConnection extends DBConnection{
 		}
 	
 	// 단어 뜻 찾기 - 영어
-	public ArrayList<String> SearchWordEng(String name, String searchword) throws SQLException{
+	public String[] SearchWordEng(String name, String searchword) throws SQLException{
 		String query = "select * from EASYLEVELWORD";;
 		String query1 = "select USERLEVEL from USERINFO where USERNAME = ?";
 		ArrayList<String> SearchWordEnglish = new ArrayList<>();
@@ -123,10 +123,11 @@ public class WordDBConnection extends DBConnection{
 		}
 		catch (SQLException e){ e.printStackTrace();
 		} finally { con.close(); }
-		return SearchWordEnglish;
+		String[] WordEnglish = SearchWordEnglish.toArray(new String[0]);
+		return WordEnglish;
 		}
 	// 단어 뜻 찾기 - 한글
-		public ArrayList<String> SearchWordKor(String name, String searchword) throws SQLException{
+		public String[] SearchWordKor(String name, String searchword) throws SQLException{
 			String query = "select * from EASYLEVELWORD";;
 			String query1 = "select USERLEVEL from USERINFO where USERNAME = ?";
 			ArrayList<String> SearchWordKorean = new ArrayList<>();
@@ -153,11 +154,12 @@ public class WordDBConnection extends DBConnection{
 			}
 			catch (SQLException e){ e.printStackTrace();
 			} finally { con.close(); }
-			return SearchWordKorean;
+			String[] WordKorean = SearchWordKorean.toArray(new String[0]);
+			return WordKorean;
 			}
 		
 		// 단어 뜻 찾기 - 발음
-				public ArrayList<String> SearchWordPro(String name, String searchword) throws SQLException{
+				public String[] SearchWordPro(String name, String searchword) throws SQLException{
 					String query = "select * from EASYLEVELWORD";;
 					String query1 = "select USERLEVEL from USERINFO where USERNAME = ?";
 					ArrayList<String> SearchWordPronunciation = new ArrayList<>();
@@ -184,11 +186,12 @@ public class WordDBConnection extends DBConnection{
 					}
 					catch (SQLException e){ e.printStackTrace();
 					} finally { con.close(); }
-					return SearchWordPronunciation;
+					String[] WordPronunciation = SearchWordPronunciation.toArray(new String[0]);
+					return WordPronunciation;
 					}
 				
 				// 단어 뜻 찾기 - 영어
-				public ArrayList<String> SearchMeanEng(String name, String searchword) throws SQLException{
+				public String[] SearchMeanEng(String name, String searchword) throws SQLException{
 					String query = "select * from EASYLEVELWORD";
 					String query1 = "select USERLEVEL from USERINFO where USERNAME = ?";
 					ArrayList<String> SearchWordEnglish = new ArrayList<>();
@@ -215,13 +218,14 @@ public class WordDBConnection extends DBConnection{
 					}
 					catch (SQLException e){ e.printStackTrace();
 					} finally { con.close(); }
-					return SearchWordEnglish;
+					String[] WordEnglish = SearchWordEnglish.toArray(new String[0]);
+					return WordEnglish;
 					}
 				// 단어 뜻 찾기 - 한글
-				public ArrayList<String> SearchMeanKor(String name, String searchword) throws SQLException{
+				public String[] SearchMeanKor(String name, String searchword) throws SQLException{
 					String query = "select * from EASYLEVELWORD";
 					String query1 = "select USERLEVEL from USERINFO where USERNAME = ?";
-					ArrayList<String> SearchWordEnglish = new ArrayList<>();
+					ArrayList<String> SearchWordKorean = new ArrayList<>();
 					String difficulty = null;
 					// 단어 선택지에 따라 다르게 넣어야 함
 					try { DB_Connect();
@@ -239,19 +243,20 @@ public class WordDBConnection extends DBConnection{
 					ResultSet rs = pstmt2.executeQuery();
 					while (rs.next()) {
 						String swk = rs.getString("WORDKOR");
-						SearchWordEnglish.add(swk);
+						SearchWordKorean.add(swk);
 					}
 					pstmt.close(); pstmt2.close(); diff.close(); rs.close();
 					}
 					catch (SQLException e){ e.printStackTrace();
 					} finally { con.close(); }
-					return SearchWordEnglish;
+					String[] WordKorean = SearchWordKorean.toArray(new String[0]);
+					return WordKorean;
 					}
 					// 단어 뜻 찾기 - 발음
-				public ArrayList<String> SearchMeanPro(String name, String searchword) throws SQLException{
+				public String[] SearchMeanPro(String name, String searchword) throws SQLException{
 					String query = "select * from EASYLEVELWORD";
 					String query1 = "select USERLEVEL from USERINFO where USERNAME = ?";
-					ArrayList<String> SearchWordEnglish = new ArrayList<>();
+					ArrayList<String> SearchWordPronunciation = new ArrayList<>();
 					String difficulty = null;
 					// 단어 선택지에 따라 다르게 넣어야 함
 					try { DB_Connect();
@@ -269,13 +274,14 @@ public class WordDBConnection extends DBConnection{
 					ResultSet rs = pstmt2.executeQuery();
 					while (rs.next()) {
 						String swp = rs.getString("WORDPRONUNCIATION");
-						SearchWordEnglish.add(swp);
+						SearchWordPronunciation.add(swp);
 					}
 					pstmt.close(); pstmt2.close(); diff.close(); rs.close();
 					}
 					catch (SQLException e){ e.printStackTrace();
 					} finally { con.close(); }
-					return SearchWordEnglish;
+					String[] WordPronunciation = SearchWordPronunciation.toArray(new String[0]);
+					return WordPronunciation;
 					}
 				
 		// 단어 추가

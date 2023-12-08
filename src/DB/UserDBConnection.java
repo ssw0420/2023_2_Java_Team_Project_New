@@ -89,27 +89,48 @@ public class UserDBConnection extends DBConnection{
 		String[] userArray = userinfo.toArray(new String[0]);
         return userArray;
 		}
+	
 	public void EditUser(String name, String editname, String diff) throws SQLException {
-		String query = "select USERNUMBER from USERINFO where USERNAME = ?";
-		String query1 = "update USERINFO set USERNAME = ?, USERLEVEL = ?, USERHIGHSCORE = 0, USERLASTWORD = 0 where USERNUMBER = ?";
-		
-		int usernum = 0;
-		
-		try { DB_Connect();
-		PreparedStatement pstmt = con.prepareStatement(query);
-		pstmt.setString(1, name);
-		ResultSet rs = pstmt.executeQuery();
-		while(rs.next()) {
-			usernum = rs.getInt(1);
-		}
-		PreparedStatement pstmt1 = con.prepareStatement(query1);
-		pstmt1.setString(1, editname);
-		pstmt1.setString(2, diff);
-		pstmt1.setInt(3, usernum);
-		pstmt1.executeUpdate();
-		pstmt.close(); pstmt1.close();
-		} catch(SQLException e) { e.printStackTrace();
-		} finally { con.close(); }
-	}
-}
+	      String query = "select USERNUMBER from USERINFO where USERNAME = ?";
+	      String query1 = "update USERINFO set USERNAME = ?, USERLEVEL = ?, USERHIGHSCORE = 0, USERLASTWORD = 0 where USERNUMBER = ?";
+	      
+	      int usernum = 0;
+	      
+	      try { DB_Connect();
+	      PreparedStatement pstmt = con.prepareStatement(query);
+	      pstmt.setString(1, name);
+	      ResultSet rs = pstmt.executeQuery();
+	      while(rs.next()) {
+	         usernum = rs.getInt(1);
+	      }
+	      PreparedStatement pstmt1 = con.prepareStatement(query1);
+	      pstmt1.setString(1, editname);
+	      pstmt1.setString(2, diff);
+	      pstmt1.setInt(3, usernum);
+	      pstmt1.executeUpdate();
+	      pstmt.close(); pstmt1.close();
+	      } catch(SQLException e) { e.printStackTrace();
+	      } finally { con.close(); }
+	   }
+	
+	// 책갈피 메소드 (마지막 번호 갱신)
+		public void UpdateLastWord(String name, int lastword) throws SQLException {
+			String query = "update USERINFO set USERLASTWORD = ? where USERNAME = ?";
+			String lastwordquery = "select USERLASTWORD from USERINFO where USERNAME = ?";
+			// 최고 점수를 현재 유저의 정보에 갱신
+			try { DB_Connect();
+			PreparedStatement pstmt = con.prepareStatement(lastwordquery);
+			PreparedStatement pstmt1 = con.prepareStatement(query);
+			pstmt.setString(1, name);
+			int userlastword = pstmt.executeUpdate();
+			int latestword = lastword > userlastword? lastword : userlastword;
+			pstmt1.setInt(1, latestword);
+			pstmt1.setString(2, name);
+			pstmt1.executeUpdate();
+			pstmt.close(); pstmt1.close();
+			}
+			catch (SQLException e){ e.printStackTrace();
+			} finally { con.close(); }
+			}
 
+}
