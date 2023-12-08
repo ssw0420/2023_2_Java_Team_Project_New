@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.sun.tools.javac.Main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Panel;
@@ -77,11 +78,19 @@ public class MainUI extends JFrame implements ActionListener {
 		setContentPane(mainPanel);
 //		mainPanel.setLayout(null);
 		
+		ImageIcon background;
+		background = new ImageIcon("resource/background/Main_Background.png");
 		
 		// 시작 페이지 화면
-		JPanel startPage = new JPanel();
-		startPage.setBackground(new Color(176, 196, 222));
-		startPage.setBounds(140, 120, 1000, 550);
+		JPanel startPage = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(background.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+//		startPage.setBackground(new Color(176, 196, 222));
+//		startPage.setBounds(140, 120, 1000, 550);
 		mainPanel.add(startPage, "startPage");
 		startPage.setLayout(null);
 		
@@ -115,12 +124,14 @@ public class MainUI extends JFrame implements ActionListener {
 		JLabel mainName = new JLabel("영어 단어 학습");
 		mainName.setHorizontalAlignment(SwingConstants.CENTER);
 		mainName.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 40));
-		mainName.setBounds(500, 22, 300, 72);
+		mainName.setBounds(500, 51, 300, 72);
 		startPage.add(mainName);
 
 		// 미구현 - 유저 목록
 				JPanel UserListPanel = new JPanel();
-				UserListPanel.setBounds(200, 145, 800, 360);
+				// 색 변경
+				UserListPanel.setBackground(new Color(250, 220, 180));
+				UserListPanel.setBounds(259, 145, 741, 420);
 				startPage.add(UserListPanel);
 				UserListPanel.setLayout(null);
 				
@@ -213,7 +224,7 @@ public class MainUI extends JFrame implements ActionListener {
 		// startButton.setBorderPainted(false);
 		startButton.setBackground(new Color(255, 255, 255));
 		startButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		startButton.setBounds(540, 520, 200, 150);
+		startButton.setBounds(540, 575, 200, 150);
 		startPage.add(startButton);
 		
 		JLabel addLabel = new JLabel("추가");
@@ -239,7 +250,7 @@ public class MainUI extends JFrame implements ActionListener {
             public void valueChanged(ListSelectionEvent e) {
                 // 아무 아이템도 선택되지 않았으면 버튼 비활성화, 선택되었으면 활성화
             	username = list.getSelectedValue();
-            	System.out.println(list.getSelectedValue());
+//            	System.out.println(list.getSelectedValue());
                 startButton.setEnabled(!list.isSelectionEmpty());
             }
         });
@@ -257,7 +268,7 @@ public class MainUI extends JFrame implements ActionListener {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
     		}
-            showPanel("editUserPage", none);
+				showPanel("editUserPage", none);
         }
 		
         else if(source == startButton) {
@@ -293,7 +304,7 @@ public class MainUI extends JFrame implements ActionListener {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
     		}
-            showPanel("wordMenuPage", none);
+				showPanel("wordMenuPage", none);
         }
     }
 	
@@ -304,5 +315,15 @@ public class MainUI extends JFrame implements ActionListener {
             for(int i=0;i<list.length;i++)
                 listModel.addElement(list[i]);
         }
-    }
+        else if (panelName.equals("wordMenuPage")) {
+            // 패널이 wordMenuPage로 이동할 때 UserDetailHead를 갱신
+        	String[] userinfo;
+            try {
+                userinfo = DBConn.BringUserInfo(username);
+                add(new UserDetailHead(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2])));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+	}
 }

@@ -19,7 +19,6 @@ public class WordScoreLink extends DBConnection{
 			int highscore = rs.getInt(1);
 			highestscore = score > highscore? score : highscore;
 		}
-		
 		pstmt1.setInt(1, highestscore);
 		pstmt1.setString(2, user);
 		pstmt1.executeUpdate();

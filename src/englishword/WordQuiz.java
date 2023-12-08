@@ -43,14 +43,21 @@ public class WordQuiz extends JPanel {
 	private boolean timerRunning;
 	private int delay = 1000;
 	public boolean answerChecked; // 사용자가 정답 확인을 완료했는지 여부
+	private ImageIcon background = new ImageIcon("resource/background/Main_Background.png");
+	
+	public String[] wordeng = WDBConn.BringWordEng(MainUI.username);
+	public String[] wordkor = WDBConn.BringWordKor(MainUI.username);
+
+	public void paintComponent(Graphics g) {
+		g.drawImage(background.getImage(), 0, 0, null);
+		setOpaque(false);
+		super.paintComponent(g);
+}
 	/**
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
 	public WordQuiz(MainUI MainFrame, String name) throws SQLException {
-		
-		String[] wordeng = WDBConn.BringWordEng(name);
-		String[] wordkor = WDBConn.BringWordKor(name);
     	System.out.println(ansnum);
     	System.out.println(anstype);
 		cu.username = usinfo[0];
@@ -64,8 +71,8 @@ public class WordQuiz extends JPanel {
 		setLayout(null);
 		
 		UserDetailHead userDetailHead = new UserDetailHead(cu.username, cu.userlevel, cu.userhighscore);
-		userDetailHead.setBackground(new Color(230, 230, 230));
-		userDetailHead.setLocation(250, 25);
+		userDetailHead.setBackground(new Color(214, 168, 109));
+		userDetailHead.setLocation(250, 50);
 		userDetailHead.setSize(800, 70);
 		add(userDetailHead, "userDetailHead");
 		
@@ -84,11 +91,7 @@ public class WordQuiz extends JPanel {
 //				setVisible(false);
 //				wordMenuPage.setVisible(true);
 				timerThread.interrupt();
-				try {
 					quizExit(MainFrame);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
 			}
 		});
 		exitButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
@@ -98,13 +101,13 @@ public class WordQuiz extends JPanel {
 		// 문제로 표시될 영어 단어
         wordLabel = new JLabel(wordeng[ansnum]); // 임의의 영어 단어로 초기화
         wordLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        wordLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 24));
-        wordLabel.setBounds(103, 133, 800, 70);
+        wordLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 35));
+        wordLabel.setBounds(104, 141, 800, 70);
         add(wordLabel);
 		
 		// 선택 버튼
 		choiceButton_1 = new JButton(wordkor[ansnum]);
-		choiceButton_1.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
+		choiceButton_1.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
 		choiceButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				choiceAnswer = choiceButton_1.getText(); // 현재 표시된 영어 단어
@@ -122,7 +125,7 @@ public class WordQuiz extends JPanel {
 		add(choiceButton_1);
 		
 		choiceButton_2 = new JButton(wordkor[ansnum+1]);
-		choiceButton_2.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
+		choiceButton_2.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
 		choiceButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				choiceAnswer = choiceButton_2.getText(); // 현재 표시된 영어 단어
@@ -139,7 +142,7 @@ public class WordQuiz extends JPanel {
 		add(choiceButton_2);
 		
 		choiceButton_3 = new JButton(wordkor[ansnum+2]);
-		choiceButton_3.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
+		choiceButton_3.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
 		choiceButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				choiceAnswer = choiceButton_3.getText(); // 현재 표시된 영어 단어
@@ -156,7 +159,7 @@ public class WordQuiz extends JPanel {
 		add(choiceButton_3);
 		
 		choiceButton_4 = new JButton(wordkor[ansnum+3]);
-		choiceButton_4.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
+		choiceButton_4.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
 		choiceButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				choiceAnswer = choiceButton_4.getText(); // 현재 표시된 영어 단어
@@ -204,13 +207,13 @@ public class WordQuiz extends JPanel {
 	// 함수 구현
 	
 	// 나가기 버튼 클릭 시 팝업창
-	public void quizExit(MainUI MainFrame) throws SQLException {
-		Scorelink.UpdateScore(cu.username, nowScore);
+	public void quizExit(MainUI MainFrame) {
         if (exitDialog != null && exitDialog.isShowing()) {
             exitDialog.dispose(); // 이미 다이얼로그가 열려있으면 닫기
         }
         Thread currentTimerThread = timerThread;
         exitDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "돌아가기", true);
+        exitDialog.setBackground(new Color(255, 242, 225));
         exitDialog.getContentPane().setLayout(null);
         JLabel exitLabel = new JLabel("정말로 퀴즈를 종료하시겠습니까?");
 		exitLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -226,12 +229,13 @@ public class WordQuiz extends JPanel {
 		exitButton.setBackground(new Color(255, 255, 255));
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String[] userinfo;
 				try {
-					String[] currentuserinfo = DBConn.BringUserInfo(MainUI.username);
-					UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
-					new UserDetailHead(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
-					MainFrame.showPanel("wordMenuPage", null);
-					exitDialog.dispose();
+					Scorelink.UpdateScore(cu.username, nowScore);
+					userinfo = DBConn.BringUserInfo(cu.username);
+					new UserDetailHead(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
+				    MainFrame.showPanel("wordMenuPage", null);
+				    exitDialog.dispose();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -268,6 +272,7 @@ public class WordQuiz extends JPanel {
         }
 //        timerThread.interrupt();
         resultDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "진행 중", true); // 부모 프레임을 설정
+        resultDialog.setBackground(new Color(255, 242, 225));
         JLabel resultLabel = new JLabel(message);
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resultLabel.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
@@ -304,12 +309,8 @@ public class WordQuiz extends JPanel {
      * 시간 초과 메시지 표시 메서드
      * @throws SQLException 
      */
-    private void showTimeoutMessage(MainUI MainFrame) throws SQLException {
-    	// timerThread.interrupt(); // 스레드를 중지
-    	
-    	String[] wordeng = WDBConn.BringWordEng(MainUI.username);
-    	String[] wordkor = WDBConn.BringWordKor(MainUI.username);
-    	
+    private void showTimeoutMessage(MainUI MainFrame) {
+    	// timerThread.interrupt(); // 스레드를 중지	
     	wordAnswer = wordkor[ansnum];
     	timerRunning = false;
     	String correctWord = wordAnswer;
@@ -320,12 +321,18 @@ public class WordQuiz extends JPanel {
         if(userLife <= 0) {
         	showResultDialog("퀴즈 종료. 라이프가 모두 소진되었습니다.", false);
         	answerChecked = false;
-        	Scorelink.UpdateScore(cu.username, nowScore);
-			String[] currentuserinfo = DBConn.BringUserInfo(MainUI.username);
-			UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
-			new UserDetailHead(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
-			MainFrame.showPanel("wordMenuPage", null);
-
+        	String[] userinfo;
+			try {
+				Scorelink.UpdateScore(cu.username, nowScore);
+				userinfo = DBConn.BringUserInfo(cu.username);
+				new UserDetailHead(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
+			    MainFrame.showPanel("wordMenuPage", null);
+			    exitDialog.dispose();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	        exitDialog.dispose();
         }
         else {
         	ansnum = r.nextInt(wordeng.length);
@@ -469,11 +476,18 @@ public class WordQuiz extends JPanel {
             if (userLife <= 0) {
                 showResultDialog("게임 종료. 라이프가 모두 소진되었습니다.", false);
                 answerChecked = false;
-                Scorelink.UpdateScore(cu.username, nowScore);
-                String[] currentuserinfo = DBConn.BringUserInfo(MainUI.username);
-    			UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
-    			new UserDetailHead(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
-    			MainFrame.showPanel("wordMenuPage", null);
+                String[] userinfo;
+				try {
+					Scorelink.UpdateScore(cu.username, nowScore);
+					userinfo = DBConn.BringUserInfo(cu.username);
+					new UserDetailHead(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
+				    MainFrame.showPanel("wordMenuPage", null);
+				    exitDialog.dispose();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    	        	exitDialog.dispose();
             } else {
                 // 오답인 버튼 색상 변경
                 getSelectedButton(selectedMeaning).setBackground(new Color(220, 20, 60));
@@ -621,12 +635,7 @@ public class WordQuiz extends JPanel {
                         Thread.sleep(1000); // 1초 대기
                     }
                     if (timerRunning) {
-                        try {
 							showTimeoutMessage(MainFrame);
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
                     }
                 } catch (InterruptedException e) {
                     // 타이머 중단 시 발생하는 예외 처리
@@ -654,12 +663,7 @@ public class WordQuiz extends JPanel {
                         Thread.sleep(1000); // 1초 대기
                     }
                     if (timerRunning) {
-                        try {
 							showTimeoutMessage(MainFrame);
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
                     }
                 } catch (InterruptedException e) {
                     // 타이머 중단 시 발생하는 예외 처리

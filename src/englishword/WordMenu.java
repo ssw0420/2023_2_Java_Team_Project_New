@@ -2,6 +2,7 @@ package englishword;
 
 import DB.*;
 import java.awt.Color;
+import java.awt.Graphics;
 import englishword.UserDetailHead;
 import javax.swing.JPanel;
 import javax.swing.DefaultListModel;
@@ -20,6 +21,13 @@ public class WordMenu extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private int selectNumber = 0;
+	private ImageIcon background = new ImageIcon("resource/background/Main_Background.png");
+
+	public void paintComponent(Graphics g) {
+		g.drawImage(background.getImage(), 0, 0, null);
+		setOpaque(false);
+		super.paintComponent(g);
+}
 	UserInformation cu = new UserInformation();
 	UserDBConnection DBConn = new UserDBConnection();
 	public String[] usinfo = DBConn.BringUserInfo(MainUI.username);
@@ -34,15 +42,14 @@ public class WordMenu extends JPanel {
 		cu.userlevel = usinfo[1];
 		cu.userhighscore = Integer.parseInt(usinfo[2]);
 		cu.userlastword = Integer.parseInt(usinfo[3]);
-		String[] word = null;
 		setBackground(new Color(176, 196, 222));
 		setBounds(140, 120, 1000, 550);
 		setSize(1280, 800); // 화면 크기 설정
 		setLayout(null);
 		
 		UserDetailHead userDetailHead = new UserDetailHead(cu.username, cu.userlevel, cu.userhighscore);
-		userDetailHead.setBackground(new Color(230, 230, 230));
-		userDetailHead.setLocation(250, 25);
+		userDetailHead.setBackground(new Color(214, 168, 109));
+		userDetailHead.setLocation(250, 50);
 		userDetailHead.setSize(800, 70);
 		add(userDetailHead, "userDetailHead");
 //		userDetailHead.updateUserInfo(cu.username, cu.userlevel, cu.userhighscore);
@@ -53,7 +60,7 @@ public class WordMenu extends JPanel {
 		selectMenuLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		selectMenuLabel.setForeground(new Color(0, 0, 0));
 		selectMenuLabel.setBackground(new Color(0, 0, 0));
-		selectMenuLabel.setBounds(600, 175, 470, 365);
+		selectMenuLabel.setBounds(536, 175, 600, 365);
 		add(selectMenuLabel);
 		
 		
@@ -79,7 +86,7 @@ public class WordMenu extends JPanel {
 		wordMemorizeButton.setForeground(new Color(0, 0, 0));
 		wordMemorizeButton.setBackground(new Color(0, 0, 0));
 		wordMemorizeButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		wordMemorizeButton.setBounds(70, 175, 400, 100);
+		wordMemorizeButton.setBounds(120, 175, 400, 100);
 		
 		wordQuizButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -101,7 +108,7 @@ public class WordMenu extends JPanel {
 		wordQuizButton.setForeground(new Color(0, 0, 0));
 		wordQuizButton.setBackground(new Color(0, 0, 0));
 		wordQuizButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 30));
-		wordQuizButton.setBounds(70, 415, 400, 100);
+		wordQuizButton.setBounds(120, 415, 400, 100);
 		
 		
 		add(wordMemorizeButton);
@@ -132,12 +139,12 @@ public class WordMenu extends JPanel {
 						currentuserinfo = DBConn.BringUserInfo(MainUI.username);
 						UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
 						new UserDetailHead(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
+						MainFrame.showPanel("wordQuizPage", null);
+						wordQuizPage.startTimer(MainFrame);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					MainFrame.showPanel("wordQuizPage", null);
-					wordQuizPage.startTimer(MainFrame);
 				}
 			}
 		});
@@ -152,7 +159,7 @@ public class WordMenu extends JPanel {
 		add(MenuStartButton);
 		
 		JButton UserHomeButton = new JButton(new ImageIcon("resource/icons/home_100.png"));
-		UserHomeButton.setBounds(1065, 25, 100, 100);
+		UserHomeButton.setBounds(1095, 50, 100, 100);
 		UserHomeButton.setHorizontalAlignment(JButton.CENTER);
 		UserHomeButton.setVerticalAlignment(JButton.CENTER);
 		UserHomeButton.setContentAreaFilled(false);
@@ -171,7 +178,7 @@ public class WordMenu extends JPanel {
 				selectMenuLabel.setHorizontalAlignment(SwingConstants.LEFT);
 				selectMenuLabel.setForeground(new Color(0, 0, 0));
 				selectMenuLabel.setBackground(new Color(0, 0, 0));
-				selectMenuLabel.setBounds(600, 175, 470, 365);
+				selectMenuLabel.setBounds(536, 175, 600, 365);
 				String[] list;
 				try {
 					list = DBConn.BringUser();
@@ -184,7 +191,12 @@ public class WordMenu extends JPanel {
 		});
 		UserHomeButton.setBackground(new Color(255, 255, 255));
 		UserHomeButton.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 16));
-	}
+		
+		JLabel seperateLine = new JLabel("------------------------------------------");
+		seperateLine.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 15));
+		seperateLine.setHorizontalAlignment(SwingConstants.CENTER);
+		seperateLine.setBounds(102, 335, 391, 15);
+		add(seperateLine);	}
 	public class UserInformation {
 		public String username;
 		public String userlevel;
