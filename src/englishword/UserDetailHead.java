@@ -46,7 +46,7 @@ public class UserDetailHead extends JPanel {
 		userHighScoreLabel.setBounds(580, 12, 254, 40);
 		add(userHighScoreLabel);
 		
-		updateUserInfo(userName, userLevel, userHighScore);
+//		updateUserInfo(userName, userLevel, userHighScore);
 
 	}
 	public static void updateUserInfo(String userName, String userLevel, int userHighScore) {

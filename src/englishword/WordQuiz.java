@@ -53,11 +53,13 @@ public class WordQuiz extends JPanel {
 		setOpaque(false);
 		super.paintComponent(g);
 }
+	
 	/**
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
 	public WordQuiz(MainUI MainFrame, String name) throws SQLException {
+		
     	System.out.println(ansnum);
     	System.out.println(anstype);
 		cu.username = usinfo[0];
@@ -233,7 +235,7 @@ public class WordQuiz extends JPanel {
 				try {
 					Scorelink.UpdateScore(cu.username, nowScore);
 					userinfo = DBConn.BringUserInfo(cu.username);
-					new UserDetailHead(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
+					UserDetailHead.updateUserInfo(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
 				    MainFrame.showPanel("wordMenuPage", null);
 				    exitDialog.dispose();
 				} catch (SQLException e1) {
@@ -325,7 +327,7 @@ public class WordQuiz extends JPanel {
 			try {
 				Scorelink.UpdateScore(cu.username, nowScore);
 				userinfo = DBConn.BringUserInfo(cu.username);
-				new UserDetailHead(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
+				UserDetailHead.updateUserInfo(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
 			    MainFrame.showPanel("wordMenuPage", null);
 			    exitDialog.dispose();
 			} catch (SQLException e1) {
@@ -480,7 +482,7 @@ public class WordQuiz extends JPanel {
 				try {
 					Scorelink.UpdateScore(cu.username, nowScore);
 					userinfo = DBConn.BringUserInfo(cu.username);
-					new UserDetailHead(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
+					UserDetailHead.updateUserInfo(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
 				    MainFrame.showPanel("wordMenuPage", null);
 				    exitDialog.dispose();
 				} catch (SQLException e1) {

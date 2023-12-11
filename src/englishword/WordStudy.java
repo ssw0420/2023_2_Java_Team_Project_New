@@ -59,7 +59,7 @@ public class WordStudy extends JPanel{
 		
 		cu.name = user[0];
 		cu.diff = user[1];
-		cu.highscore = user[2];
+		cu.highscore = Integer.parseInt(user[2]);
 		cu.lastword = Integer.parseInt(user[3]);
 		
 		setBackground(SystemColor.activeCaption);
@@ -70,9 +70,14 @@ public class WordStudy extends JPanel{
 		exitDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "돌아가기", true);
         exitDialog.getContentPane().setLayout(null);
 		
+//        UserDetailHead userDetailHead = new UserDetailHead(cu.name, cu.diff, cu.highscore);
+//		userDetailHead.setBackground(new Color(214, 168, 109));
+//		userDetailHead.setLocation(20, 50);
+//		userDetailHead.setSize(800, 70);
+//		add(userDetailHead, "userDetailHead");
 		
 		JButton ExitButton = new JButton("나가기");
-		ExitButton.setBounds(1122, 665, 130, 70);
+		ExitButton.setBounds(12, 10, 103, 33);
 		add(ExitButton);
 		ExitButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -82,7 +87,7 @@ public class WordStudy extends JPanel{
 		
 		JButton nextButton = new JButton(">>>");
 		nextButton.setFont(new Font("굴림", Font.BOLD, 20));
-		nextButton.setBounds(1064, 185, 116, 470);
+		nextButton.setBounds(1056, 359, 130, 70);
 		add(nextButton);
         nextButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -100,7 +105,7 @@ public class WordStudy extends JPanel{
         
         JButton prevButton = new JButton("<<<");
         prevButton.setFont(new Font("굴림", Font.BOLD, 20));
-        prevButton.setBounds(234, 185, 116, 470);
+        prevButton.setBounds(80, 359, 130, 70);
         add(prevButton);
         prevButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -119,7 +124,7 @@ public class WordStudy extends JPanel{
         
         
    	    JButton SaveProgress_ = new JButton("책갈피");
-   	    SaveProgress_.setBounds(45, 375, 130, 70);
+   	    SaveProgress_.setBounds(1000, 10, 100, 70);
         add(SaveProgress_);
         SaveProgress_.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -136,7 +141,7 @@ public class WordStudy extends JPanel{
         
         
         JButton saveButton = new JButton("불러오기");
-        saveButton.setBounds(45, 526, 130, 70);
+        saveButton.setBounds(1122, 10, 100, 70);
         add(saveButton);
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -169,7 +174,7 @@ public class WordStudy extends JPanel{
         WordEngTextField11.setEditable(false);
         WordEngTextField11.setText("["+pronunciations[i]+"]");
         WordEngTextField11.setFont(new Font("Charis SIL", Font.BOLD, 25));
-        WordEngTextField11.setBounds(375, 315, 300, 70);
+        WordEngTextField11.setBounds(240, 315, 300, 70);
         WordEngTextField11.setBorder(null);
         add(WordEngTextField11);
         WordEngTextField11.setColumns(10);
@@ -179,7 +184,7 @@ public class WordStudy extends JPanel{
         WordEngTextField22.setEditable(false);
         WordEngTextField22.setText("["+pronunciations[i+1]+"]");
         WordEngTextField22.setFont(new Font("Charis SIL", Font.BOLD, 25));
-        WordEngTextField22.setBounds(375, 585, 300, 70);
+        WordEngTextField22.setBounds(240, 630, 300, 70);
         WordEngTextField22.setBorder(null);
         add(WordEngTextField22);
         WordEngTextField22.setColumns(10);
@@ -199,7 +204,7 @@ public class WordStudy extends JPanel{
         WordEngTextField44.setEditable(false);
         WordEngTextField44.setFont(new Font("Charis SIL", Font.BOLD, 25));
         WordEngTextField44.setText("["+pronunciations[i+3]+"]");
-        WordEngTextField44.setBounds(740, 585, 300, 70);
+        WordEngTextField44.setBounds(740, 630, 300, 70);
         WordEngTextField44.setBorder(null);
         add(WordEngTextField44);
         WordEngTextField44.setColumns(10);
@@ -213,7 +218,7 @@ public class WordStudy extends JPanel{
         WordEngTextField1.setEditable(false);
         WordEngTextField1.setFont(new Font("KoPubWorld돋움체 Bold", Font.BOLD, 25));
         WordEngTextField1.setText(words[i]+"\n\n"+ meanings[i]);
-        WordEngTextField1.setBounds(375, 185, 300, 200);
+        WordEngTextField1.setBounds(240, 185, 300, 200);
         add(WordEngTextField1);
         WordEngTextField1.setColumns(10);
 
@@ -223,7 +228,7 @@ public class WordStudy extends JPanel{
         WordEngTextField2.setEditable(false);
         WordEngTextField2.setFont(new Font("KoPubWorld돋움체 Bold", Font.BOLD, 25));
         WordEngTextField2.setText(words[i+1]+"\n\n"+ meanings[i+1]);
-        WordEngTextField2.setBounds(375, 455, 300, 200);
+        WordEngTextField2.setBounds(240, 500, 300, 200);
         add(WordEngTextField2);
         WordEngTextField2.setColumns(10);       
         
@@ -239,7 +244,7 @@ public class WordStudy extends JPanel{
         WordEngTextField4.setFont(new Font("KoPubWorld돋움체 Bold", Font.BOLD, 25));
         WordEngTextField4.setText(words[i+3]+"\n\n"+ meanings[i+3]);
         WordEngTextField4.setEditable(false);
-        WordEngTextField4.setBounds(740, 455, 300, 200);
+        WordEngTextField4.setBounds(740, 500, 300, 200);
         add(WordEngTextField4);
         WordEngTextField4.setColumns(10);
         
@@ -279,14 +284,14 @@ public class WordStudy extends JPanel{
         ProgressNum1 = new JTextField();
         ProgressNum1.setEditable(false);
         ProgressNum1.setText("1");
-        ProgressNum1.setBounds(375, 155, 96, 21);
+        ProgressNum1.setBounds(240, 155, 96, 21);
         add(ProgressNum1);
         ProgressNum1.setColumns(10);
       
         ProgressNum2 = new JTextField();
         ProgressNum2.setEditable(false);
         ProgressNum2.setText("2");
-        ProgressNum2.setBounds(375, 424, 96, 21);
+        ProgressNum2.setBounds(240, 470, 96, 21);
         add(ProgressNum2);
         ProgressNum2.setColumns(10);
         
@@ -341,7 +346,7 @@ public class WordStudy extends JPanel{
         SearchtextField = new JTextField();
         SearchtextField.setFont(new Font("굴림", Font.PLAIN, 20));
         SearchtextField.setText("");
-        SearchtextField.setBounds(375, 55, 523, 70);
+        SearchtextField.setBounds(806, 90, 270, 35);
         add(SearchtextField);
         SearchtextField.setColumns(10);
         
@@ -410,7 +415,8 @@ public class WordStudy extends JPanel{
         		
         	}
         });
-        SearchButton.setBounds(910, 57, 130, 70);
+        SearchButton.setHorizontalAlignment(SwingConstants.LEADING);
+        SearchButton.setBounds(1088, 90, 62, 35);
         add(SearchButton);
         
    
@@ -449,7 +455,7 @@ public class WordStudy extends JPanel{
 	public class UserInformation {
 		public String name;
 		public String diff;
-		public String highscore;
+		public int highscore;
 		public int lastword;
 	}
 

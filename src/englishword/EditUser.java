@@ -2,6 +2,8 @@ package englishword;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import DB.*;
 
 import javax.swing.JButton;
@@ -23,6 +25,13 @@ public class EditUser extends JPanel {
 	private JTextField UserNameField;
 	editUser eu = new editUser();
 	UserDBConnection DBConn = new UserDBConnection();
+	private ImageIcon background = new ImageIcon("resource/background/Main_Background.png");
+
+	public void paintComponent(Graphics g) {
+		g.drawImage(background.getImage(), 0, 0, null);
+		setOpaque(false);
+		super.paintComponent(g);
+}
 
 	/**
 	 * Create the panel.
@@ -66,7 +75,7 @@ public class EditUser extends JPanel {
 		JLabel EditUserTitle = new JLabel("사용자 수정");
 		EditUserTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		EditUserTitle.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 32));
-		EditUserTitle.setBounds(540, 25, 200, 50);
+		EditUserTitle.setBounds(540, 60, 200, 50);
 		add(EditUserTitle);
 		
 		JLabel UserNameLabel = new JLabel("이        름  :");

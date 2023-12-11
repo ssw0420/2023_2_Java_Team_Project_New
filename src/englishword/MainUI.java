@@ -137,7 +137,7 @@ public class MainUI extends JFrame implements ActionListener {
 				
 				JList<String> list = new JList<>(listModel);
 //				list.setBounds(307, 5, 0, 0);
-				list.setBounds(10, 10, 747, 340); // Set the bounds for the JList itself
+				list.setBounds(25, 20, 690, 380); // Set the bounds for the JList itself
 				list.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 25));
 				list.setSelectedIndex(0);
 				UserListPanel.add(list);
@@ -272,8 +272,12 @@ public class MainUI extends JFrame implements ActionListener {
         }
 		
         else if(source == startButton) {
-        	// 단어 퀴즈 화면
-            WordQuiz wordQuizPage= null; //
+
+            WordQuiz wordQuizPage= null;
+            WordStudy wordStudyPage = null;
+            WordMenu wordMenuPage = null;
+            
+         // 단어 퀴즈 화면
             try {
     			wordQuizPage = new WordQuiz(this, username);
     			mainPanel.add(wordQuizPage, "wordQuizPage");
@@ -283,7 +287,6 @@ public class MainUI extends JFrame implements ActionListener {
     			e1.printStackTrace();
     		}
             
-            WordStudy wordStudyPage = null;
 			try {
 				wordStudyPage = new WordStudy(this, username);
 				mainPanel.add(wordStudyPage, "wordStudyPage");
@@ -293,9 +296,7 @@ public class MainUI extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
     		
-
             // 메인 화면
-            WordMenu wordMenuPage;
             try {
     			wordMenuPage = new WordMenu(this, wordQuizPage, wordStudyPage, username);
     			mainPanel.add(wordMenuPage, "wordMenuPage");
@@ -315,15 +316,15 @@ public class MainUI extends JFrame implements ActionListener {
             for(int i=0;i<list.length;i++)
                 listModel.addElement(list[i]);
         }
-        else if (panelName.equals("wordMenuPage")) {
-            // 패널이 wordMenuPage로 이동할 때 UserDetailHead를 갱신
-        	String[] userinfo;
-            try {
-                userinfo = DBConn.BringUserInfo(username);
-                add(new UserDetailHead(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2])));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+//        else if (panelName.equals("wordMenuPage")) {
+//            // 패널이 wordMenuPage로 이동할 때 UserDetailHead를 갱신
+//        	String[] userinfo;
+//            try {
+//                userinfo = DBConn.BringUserInfo(username);
+//                updateHighScore(Integer.parseInt(userinfo[2]));
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
 	}
 }

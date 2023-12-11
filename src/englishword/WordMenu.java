@@ -138,7 +138,6 @@ public class WordMenu extends JPanel {
 						String[] currentuserinfo;
 						currentuserinfo = DBConn.BringUserInfo(MainUI.username);
 						UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
-						new UserDetailHead(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
 						MainFrame.showPanel("wordQuizPage", null);
 						wordQuizPage.startTimer(MainFrame);
 					} catch (SQLException e1) {
@@ -196,7 +195,11 @@ public class WordMenu extends JPanel {
 		seperateLine.setFont(new Font("KoPubWorld돋움체 Bold", Font.PLAIN, 15));
 		seperateLine.setHorizontalAlignment(SwingConstants.CENTER);
 		seperateLine.setBounds(102, 335, 391, 15);
-		add(seperateLine);	}
+		add(seperateLine);	
+		
+	
+	}
+
 	public class UserInformation {
 		public String username;
 		public String userlevel;
