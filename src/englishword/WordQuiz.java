@@ -708,6 +708,14 @@ public class WordQuiz extends JPanel {
     	timeLabel.setText("남은 시간 : " + remainingTime + "초");
     	NowScoreLabel.setText("현재 점수 : " + nowScore + " 점");
     	UserLifeLabel.setText("라이프 : " + userLife);
+    	String[] userinfo;
+    	try {
+			userinfo = DBConn.BringUserInfo(cu.username);
+			UserDetailHead.updateUserInfo(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     public class UserInformation {

@@ -60,7 +60,7 @@ public class WordMenu extends JPanel {
 		selectMenuLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		selectMenuLabel.setForeground(new Color(0, 0, 0));
 		selectMenuLabel.setBackground(new Color(0, 0, 0));
-		selectMenuLabel.setBounds(536, 175, 600, 365);
+		selectMenuLabel.setBounds(562, 175, 600, 365);
 		add(selectMenuLabel);
 		
 		
@@ -121,7 +121,7 @@ public class WordMenu extends JPanel {
 				try {
 //					setVisible(false);
 //					wordQuizPage.setVisible(true);
-					String[] list = DBConn.BringUserInfo(MainUI.username);
+					String[] list = DBConn.BringUserInfo(cu.username);
 					MainFrame.showPanel("wordStudyPage", list);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -134,16 +134,9 @@ public class WordMenu extends JPanel {
 					wordQuizPage.showResultDialog("퀴즈 시작 !", true);
 					wordQuizPage.initQuiz();
 					wordQuizPage.answerChecked = false;
-					try {
-						String[] currentuserinfo;
-						currentuserinfo = DBConn.BringUserInfo(MainUI.username);
-						UserDetailHead.updateUserInfo(currentuserinfo[0], currentuserinfo[1], Integer.parseInt(currentuserinfo[2]));
-						MainFrame.showPanel("wordQuizPage", null);
-						wordQuizPage.startTimer(MainFrame);
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					MainFrame.showPanel("wordQuizPage", null);
+//					updateUserInfo(cu.username);
+					wordQuizPage.startTimer(MainFrame);
 				}
 			}
 		});
@@ -198,6 +191,16 @@ public class WordMenu extends JPanel {
 		add(seperateLine);	
 		
 	
+	}
+	public void updateUserInfo(String name) {
+		String[] userinfo;
+		try {
+			userinfo = DBConn.BringUserInfo(name);
+			UserDetailHead.updateUserInfo(userinfo[0], userinfo[1], Integer.parseInt(userinfo[2]));
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	public class UserInformation {
